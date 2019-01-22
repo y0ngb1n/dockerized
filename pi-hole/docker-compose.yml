@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  pi-hole:
+    image: 'pihole/pihole:4.1.1_amd64'
+    container_name: pi-hole
+    ports:
+      - '53:53/tcp'
+      - '53:53/udp'
+      - '67:67/udp'
+      - '880:80/tcp'
+      - '8443:443/tcp'
+    environment:
+      TZ: Asia/Shanghai
+      WEBPASSWORD: admin
+      ServerIP: 192.168.1.2
+      VIRTUAL_HOST: pi.hole
+      DNS1: 114.114.114.114
+      DNS2: 223.5.5.5
+    volumes:
+      - '/usr/local/docker/pi-hole/config:/etc/pihole'
+      - '/usr/local/docker/pi-hole/dnsmasq.d:/etc/dnsmasq.d'
+      - './adlists.list:/etc/pihole/adlists.list'
+    restart: unless-stopped
+
+networks:
+  default:
+    external:
+      name: nginx-proxy-net
