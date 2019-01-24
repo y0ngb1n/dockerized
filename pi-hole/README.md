@@ -41,17 +41,18 @@ https://hosts-file.net/ad_servers.txt
 
 项目 | AD 文件地址
 ---: | ---
-[AdguardTeam/AdGuardSDNSFilter](https://github.com/AdguardTeam/AdguardSDNSFilter) | `https://adguardteam.github.io/AdGuardSDNSFilter/Filters/filter.txt`
-[vokins/yhosts](https://github.com/vokins/yhosts) |  `https://raw.githubusercontent.com/vokins/yhosts/master/hosts.txt`
+[vokins/yhosts](https://github.com/vokins/yhosts) |  `https://raw.githubusercontent.com/vokins/yhosts/master/hosts`
 [neoFelhz/neohosts](https://github.com/neofelhz/neohosts) | `https://hosts.nfz.moe/127.0.0.1/full/hosts`
 [AdAway/AdAway](https://github.com/AdAway/AdAway) | `https://adaway.org/hosts.txt`
 [MWSL-hostslist](http://www.mwsl.org.cn/mwsl-hostslist/) | `http://hosts.mwsl.org.cn/hosts.txt`
 [Blocklist Collection](https://firebog.net/) | [https://firebog.net/](https://firebog.net/)
 [justdomains/blocklists](https://github.com/justdomains/blocklists) | [https://github.com/justdomains/blocklists](https://github.com/justdomains/blocklists)
-[EasyList China](https://easylist-downloads.adblockplus.org/easylistchina.txt) | `https://easylist-downloads.adblockplus.org/easylistchina.txt`
+[AdguardTeam/AdGuardSDNSFilter](https://github.com/AdguardTeam/AdguardSDNSFilter) | `https://justdomains.github.io/blocklists/lists/adguarddns-justdomains.txt`
+[EasyList](https://easylist.to/) | `https://justdomains.github.io/blocklists/lists/easylist-justdomains.txt`</br>`https://justdomains.github.io/blocklists/lists/easyprivacy-justdomains.txt`
+[NoCoin adblock list](https://github.com/hoshsadiq/adblock-nocoin-list) | `https://justdomains.github.io/blocklists/lists/nocoin-justdomains.txt`
 
 ### 修改配置文件
 
-目前的配置文件：[adlists.list](https://raw.githubusercontent.com/y0ngb1n/dockerized/master/pi-hole/adlists.list)
+目前的配置文件：[adlists.list](./adlists.list)
 
 一键更新规则源：`wget -O adlists.list https://v.firebog.net/hosts/lists.php?type=tick`

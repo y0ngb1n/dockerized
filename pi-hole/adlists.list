@@ -6,8 +6,11 @@ https://zeustracker.abuse.ch/blocklist.php?download=domainblocklist
 #https://s3.amazonaws.com/lists.disconnect.me/simple_ad.txt
 https://hosts-file.net/ad_servers.txt
 
-https://raw.githubusercontent.com/vokins/yhosts/master/hosts.txt
+https://raw.githubusercontent.com/vokins/yhosts/master/hosts
 https://hosts.nfz.moe/127.0.0.1/full/hosts
 https://adaway.org/hosts.txt
 http://hosts.mwsl.org.cn/hosts.txt
-https://easylist-downloads.adblockplus.org/easylistchina.txt
+https://justdomains.github.io/blocklists/lists/adguarddns-justdomains.txt
+https://justdomains.github.io/blocklists/lists/easylist-justdomains.txt
+https://justdomains.github.io/blocklists/lists/easyprivacy-justdomains.txt
+https://justdomains.github.io/blocklists/lists/nocoin-justdomains.txt
