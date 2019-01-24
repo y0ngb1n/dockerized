@@ -2,14 +2,19 @@ version: '3'
 
 services:
   pi-hole:
-    image: 'pihole/pihole:4.1.1_amd64'
+    image: 'pihole/pihole:4.1.1'
     container_name: pi-hole
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
     ports:
       - '53:53/tcp'
       - '53:53/udp'
       - '67:67/udp'
       - '880:80/tcp'
       - '8443:443/tcp'
+    cap_add:
+      - NET_ADMIN
     environment:
       TZ: Asia/Shanghai
       WEBPASSWORD: admin
@@ -20,7 +25,7 @@ services:
     volumes:
       - '/usr/local/docker/pi-hole/config:/etc/pihole'
       - '/usr/local/docker/pi-hole/dnsmasq.d:/etc/dnsmasq.d'
-      - './adlists.list:/etc/pihole/adlists.list'
+      #- './adlists.list:/etc/pihole/adlists.list'
     restart: unless-stopped
 
 networks:
