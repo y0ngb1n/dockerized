@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+
+  nginx-proxy:
+    container_name: nginx-proxy
+    image: ${NP_IMAGE}
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./config/conf.d:/etc/nginx/conf.d:ro
+      - ./config/vhost.d:/etc/nginx/vhost.d:ro
+
+networks:
+  nginx-proxy:
+    external: true
