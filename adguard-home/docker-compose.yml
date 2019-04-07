@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  adguard-home:
+    image: ${AGH_IMAGE}
+    container_name: adguard-home
+    restart: always
+    networks:
+      - nginx-proxy
+    ports:
+      - "53:53"
+      - "53:53/udp"
+      - "3000:3000"
+    environment:
+      VIRTUAL_HOST: ${AGH_DOMAINS}
+
+networks:
+  nginx-proxy:
+    external: true
