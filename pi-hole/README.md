@@ -1,9 +1,8 @@
 # [Pi-hole](https://pi-hole.net/) 过滤家中广告
 
-[![Official repository](https://img.shields.io/badge/official_repo-pi--hole/docker--pi--hole-brightgreen.svg?logo=github&logoColor=white&style=flat-square)](https://github.com/pi-hole/docker-pi-hole)
-[![Official newest release](https://img.shields.io/github/release/pi-hole/docker-pi-hole.svg?label=official%20newest%20release&style=flat-square)](https://github.com/pi-hole/docker-pi-hole/releases)
+[![GitHub Repo](https://flat.badgen.net/github/tag/pi-hole/docker-pi-hole?icon=github&label=pi-hole/docker-pi-hole)](https://github.com/pi-hole/docker-pi-hole)
 
-> 截至目前该镜像为 **v4.1.1** 版本
+> 截至目前该镜像为 **v4.2.2** 版本
 
 ![pi-hole's dashboard](https://i0.wp.com/pi-hole.net/wp-content/uploads/2018/12/dashboard.png)
 
@@ -53,6 +52,6 @@ https://hosts-file.net/ad_servers.txt
 
 ### 修改配置文件
 
-目前的配置文件：[adlists.list](./adlists.list)
+目前的配置文件：[adlists.list](./config/adlists.list)
 
 一键更新规则源：`wget -O adlists.list https://v.firebog.net/hosts/lists.php?type=tick`

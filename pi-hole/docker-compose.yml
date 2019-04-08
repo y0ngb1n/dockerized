@@ -1,9 +1,12 @@
 version: '3'
 
 services:
+
   pi-hole:
-    image: 'pihole/pihole:4.1.1'
+    image: ${PH_IMAGE}
     container_name: pi-hole
+    networks:
+      - nginx-proxy
     dns:
       - 127.0.0.1
       - 1.1.1.1
@@ -17,18 +20,16 @@ services:
       - NET_ADMIN
     environment:
       TZ: Asia/Shanghai
-      WEBPASSWORD: admin
-      ServerIP: 192.168.1.2
-      VIRTUAL_HOST: pi.hole
-      DNS1: 114.114.114.114
-      DNS2: 223.5.5.5
+      VIRTUAL_HOST: ${PH_DOMAINS}
+      WEBPASSWORD: ${PH_WEB_PASSWORD}
+      DNS1: ${PH_UPSTREAM_DNS1}
+      DNS2: ${PH_UPSTREAM_DNS2}
     volumes:
-      - '/usr/local/docker/pi-hole/config:/etc/pihole'
-      - '/usr/local/docker/pi-hole/dnsmasq.d:/etc/dnsmasq.d'
-      #- './adlists.list:/etc/pihole/adlists.list'
+      - './config/conf:/etc/pihole'
+      - './config/dnsmasq.d:/etc/dnsmasq.d'
+      - './config/adlists.list:/etc/pihole/adlists.list'
     restart: unless-stopped
 
 networks:
-  default:
-    external:
-      name: nginx-proxy-net
+  nginx-proxy:
+    external: true
