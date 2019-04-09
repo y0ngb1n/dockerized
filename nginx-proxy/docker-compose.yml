@@ -6,13 +6,15 @@ services:
     container_name: nginx-proxy
     image: ${NP_IMAGE}
     restart: always
+    networks:
+      - nginx-proxy
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./config/conf.d:/etc/nginx/conf.d:ro
-      - ./config/vhost.d:/etc/nginx/vhost.d:ro
+      - ./config/conf.d:/etc/nginx/conf.d
+      - ./config/vhost.d:/etc/nginx/vhost.d
 
 networks:
   nginx-proxy:

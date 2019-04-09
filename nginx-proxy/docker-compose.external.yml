@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  whoami:
+    image: jwilder/whoami
+    networks:
+      - nginx-proxy
+    environment:
+      - VIRTUAL_HOST=whoami.local
+
+networks:
+  nginx-proxy:
+    external: true
