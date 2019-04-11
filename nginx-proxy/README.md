@@ -1,6 +1,6 @@
 # [Nginx Proxy](https://github.com/jwilder/nginx-proxy)<sup>－基于 Docker 的自动化网关</sup>
 
-![](https://flat.badgen.net/github/tag/jwilder/nginx-proxy?icon=github&label=jwilder/nginx-proxy)
+[![GitHub repo](https://flat.badgen.net/github/tag/jwilder/nginx-proxy?icon=github&label=jwilder/nginx-proxy)](https://github.com/jwilder/nginx-proxy)
 
 > 截至目前使用的镜像为 **v0.7.0** 版本
 
@@ -12,33 +12,13 @@
 
 <sub>Image by [Justin Ellingwood](https://www.digitalocean.com/community/users/jellingwood) via [DigitalOcean Community](https://www.digitalocean.com/community/tutorials/understanding-nginx-http-proxying-load-balancing-buffering-and-caching)</sub>
 
-## 快速上手
+## Getting Started
 
-### 直接使用
+### Basics
 
-**Docker Compose**
+#### Step 1: Run containers
 
-<details>
-<summary><code>docker-compose.internal.yml</code></summary>
-
-```yaml
-version: '3'
-
-services:
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    ports:
-      - "80:80"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-
-  whoami:
-    image: jwilder/whoami
-    environment:
-      - VIRTUAL_HOST=whoami.local
-```
-
-</details>
+See [`docker-compose.internal.yml`](https://raw.githubusercontent.com/y0ngb1n/dockerized/master/nginx-proxy/docker-compose.internal.yml) for details.
 
 ```bash
 mkdir -p /usr/local/docker/nginx-proxy ; cd $_
@@ -46,52 +26,34 @@ curl -sSL https://raw.githubusercontent.com/y0ngb1n/dockerized/master/nginx-prox
 docker-compose -f docker-compose.internal.yml up -d
 ```
 
-**Try Usage**
+#### Step 2: Try to access
+
+ You can easily be accessed your application containers.
 
 ```console
-$ docker-compose -f docker-compose.internal.yml up -d
 $ curl -H "Host: whoami.local" localhost
 I'm 0714faf158a5
-$ docker-compose -f docker-compose.internal.yml down
 ```
 
-### 使用外部网络
+#### Step 3: Stop and remove the currently running container
 
-**Create Network**
+```bash
+docker-compose -f docker-compose.internal.yml down
+```
+
+### Using the Multiple Networks
+
+#### Step 1: Create a network
+
+See [multiple networks](https://github.com/jwilder/nginx-proxy#multiple-networks) for details.
 
 ```bash
 docker network create nginx-proxy
 ```
 
-**Docker Compose**
+#### Step 2: Launch containers within your network
 
-<details>
-<summary><code>docker-compose.yml</code></summary>
-
-```yaml
-version: '3'
-
-services:
-  nginx-proxy:
-    container_name: nginx-proxy
-    image: jwilder/nginx-proxy
-    restart: always
-    networks:
-      - nginx-proxy
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./config/conf.d:/etc/nginx/conf.d
-      - ./config/vhost.d:/etc/nginx/vhost.d
-
-networks:
-  nginx-proxy:
-    external: true
-```
-
-</details>
+Run your **nginx-proxy** container to be attached to `nginx-proxy` network, see [`docker-compose.yml`](https://raw.githubusercontent.com/y0ngb1n/dockerized/master/nginx-proxy/docker-compose.yml) for details.
 
 ```bash
 mkdir -p /usr/local/docker/nginx-proxy ; cd $_
@@ -99,41 +61,27 @@ curl -sSL https://raw.githubusercontent.com/y0ngb1n/dockerized/master/nginx-prox
 docker-compose up -d
 ```
 
-<details>
-<summary><code>docker-compose.external.yml</code></summary>
-
-```yaml
-version: '3'
-
-services:
-  whoami:
-    image: jwilder/whoami
-    networks:
-      - nginx-proxy
-    environment:
-      - VIRTUAL_HOST=whoami.local
-
-networks:
-  nginx-proxy:
-    external: true
-```
-
-</details>
+Run other containers to be attached to `nginx-proxy` network, see [`docker-compose.external.yml`](https://raw.githubusercontent.com/y0ngb1n/dockerized/master/nginx-proxy/docker-compose.external.yml) for details.
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/y0ngb1n/dockerized/master/nginx-proxy/docker-compose.external.yml > docker-compose.external.yml
 docker-compose -f docker-compose.external.yml up -d
 ```
 
-**Try Usage**
+#### Step 3: Try to access
+
+ You can easily be accessed your application containers using the command.
 
 ```console
-$ docker-compose up -d
-$ docker-compose -f docker-compose.external.yml up -d
 $ curl -H "Host: whoami.local" localhost
 I'm 0350fcfa4caf
-$ docker-compose down
-$ docker-compose -f docker-compose.external.yml down
+```
+
+#### Step 4: Stop and remove the currently running container
+
+```bash
+docker-compose down
+docker-compose -f docker-compose.external.yml down
 ```
 
 ---
@@ -145,3 +93,10 @@ $ docker-compose -f docker-compose.external.yml down
 ## 其它选择
 
 - [使用服务发现改善开发体验](https://soulteary.com/2018/06/11/use-server-side-discovery-improve-development.html), by 苏洋 —— 介绍了如何将 [Traefik](https://traefik.io/) 作为服务网关
+
+## 相关资源
+
+- [nginx-quick-reference](https://github.com/trimstray/nginx-quick-reference)
+- [nginxconfig.io](https://nginxconfig.io/)
+- [letsencrypt-nginx-proxy-companion](https://github.com/JrCs/docker-letsencrypt-nginx-proxy-companion)
+- [mkcert](https://mkcert.dev/)
