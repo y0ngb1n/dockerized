@@ -14,7 +14,9 @@ services:
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - ./config/conf.d:/etc/nginx/conf.d
-      - ./config/vhost.d:/etc/nginx/vhost.d
+      - ./config/vhost.d:/etc/nginx/vhost.d:ro
+      - ./config/htpasswd:/etc/nginx/htpasswd
+      - /var/local/nginx-proxy/certs:/etc/nginx/certs
 
 networks:
   nginx-proxy:
