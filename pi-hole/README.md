@@ -6,10 +6,20 @@
 
 ![pi-hole's dashboard](https://i0.wp.com/pi-hole.net/wp-content/uploads/2018/12/dashboard.png)
 
-## Docker Compose
+---
+
+> 一个基于树莓派的家用 DNS 服务器，自带屏蔽广告功能。如果你还在用广告拦截器，Pi-hole 是更好的选择。它是树莓派上的 DNS 服务器，架设在局域网里面，内置黑名单，拦截广告域名的 DNS 请求。从此，局域网所有设备都看不到广告。—— 阮一峰 [第 26 期](https://github.com/ruanyf/weekly/blame/581075100e67447a2bdca9d1ef89cca8cca7932f/docs/issue-26.md#L144-L146)、[第 50 期](https://github.com/ruanyf/weekly/blame/f49a7f06039feee431c2761bbbdbe98fe7152b10/docs/issue-50.md#L160-L162) 周报分享
+
+---
+
+## Getting Started
 
 ```bash
 mkdir -p /usr/local/docker/pi-hole ; cd $_
+git svn clone https://github.com/y0ngb1n/dockerized/trunk/pi-hole .
+docker-compose up -d
+
+# or Just use docker-compose.yml, use it with .env
 curl -sSL https://raw.githubusercontent.com/y0ngb1n/dockerized/master/pi-hole/docker-compose.yml > docker-compose.yml
 docker-compose up -d
 ```
@@ -55,3 +65,8 @@ https://hosts-file.net/ad_servers.txt
 目前的配置文件：[adlists.list](./config/adlists.list)
 
 一键更新规则源：`wget -O adlists.list https://v.firebog.net/hosts/lists.php?type=tick`
+
+## 参考链接
+
+- [Pi-hole 拦截广告](https://www.troyhunt.com/mmm-pi-hole/)
+- [How a Single Raspberry Pi made my Home Network Faster](https://www.brianchristner.io/how-a-single-raspberry-pi-made-my-home-network-faster/)
