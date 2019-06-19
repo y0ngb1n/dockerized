@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  shairport-sync:
+    image: ${AP_IMAGE}
+    container_name: shairport-sync
+    restart: unless-stopped
+    network_mode: host
+    devices:
+      - /dev/snd
+    environment:
+      - AIRPLAY_NAME
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
