@@ -48,8 +48,12 @@ https://hosts-file.net/ad_servers.txt
 
 > Login › Settings › Blocklists › 添加自定义源 › Save and Update
 
-项目 | AD 文件地址
----: | ---
+### :+1: 推荐规则
+
+项目 | AD 文件地址 | 推荐
+--: | --- | :-:
+[the Block List Project](https://blocklist.site/app/) | We have lists to block ads, scams, porn, malware, ransomware & more... | ❤
+[my-pihole-blocklists](https://github.com/chadmayfield/my-pihole-blocklists) | <https://github.com/chadmayfield/my-pihole-blocklists/tree/master/lists>
 [vokins/yhosts](https://github.com/vokins/yhosts) |  `https://raw.githubusercontent.com/vokins/yhosts/master/hosts`
 [neoFelhz/neohosts](https://github.com/neofelhz/neohosts) | `https://hosts.nfz.moe/127.0.0.1/full/hosts`
 [AdAway/AdAway](https://github.com/AdAway/AdAway) | `https://adaway.org/hosts.txt`
