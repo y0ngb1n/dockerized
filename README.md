@@ -36,6 +36,7 @@ chmod +x /usr/local/bin/docker-compose
 [docker_practice](https://github.com/yeasy/docker_practice) | Docker — 从入门到实践 | ![GitHub stars](https://flat.badgen.net/github/stars/yeasy/docker_practice)
 [distroless](https://github.com/GoogleContainerTools/distroless) | Language focused docker images, minus the operating system | ![GitHub stars](https://flat.badgen.net/github/stars/GoogleContainerTools/distroless)
 [gcr](https://github.com/mritd/gcr) | [GCR](https://gcr.io/) 同步仓库 | ![GitHub stars](https://flat.badgen.net/github/stars/mritd/gcr)
+[awesome-selfhosted](https://github.com/Kickball/awesome-selfhosted) | Selfhosting is the process of locally hosting and managing applications instead of renting from SaaS providers. | ![GitHub stars](https://flat.badgen.net/github/stars/Kickball/awesome-selfhosted)
 
 ### 同类仓库
 
