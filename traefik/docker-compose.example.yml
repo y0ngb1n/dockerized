@@ -1,0 +1,35 @@
+##############################################################################
+# Ref: https://docs.traefik.io/getting-started/quick-start/
+# ├── Step 01: docker-compose up -d --scale whoami=2
+# ├── Step 02: curl -H Host:whoami.lab.io http://127.0.0.1
+# └── Step 03: docker-compose down
+##############################################################################
+version: '3.3'
+
+services:
+  traefik:
+    image: traefik:v2.0
+    command: --api.insecure --providers.docker
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.lab.io`)"
+      - "traefik.http.services.traefik-dashboard.loadbalancer.server.port=8080"
+    expose:
+      - 80
+      - 443
+      - 8080
+    extra_hosts:
+      - "traefik.lab.io:127.0.0.1"
+
+  whoami:
+    image: containous/whoami
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`whoami.lab.io`)"
+    expose:
+      - 80
+    extra_hosts:
+      - "whoami.lab.io:127.0.0.1"
