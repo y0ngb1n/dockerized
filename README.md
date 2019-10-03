@@ -28,6 +28,11 @@ chmod +x /usr/local/bin/docker-compose
 
 ## ⚗️ 资源推荐
 
+### 在线体验
+
++ [Play with Docker](https://labs.play-with-docker.com/)
++ [Play with Kubernetes](https://labs.play-with-k8s.com/)
+
 ### 开源仓库
 
 库名 | 简述 | Stars
