@@ -1,0 +1,35 @@
+version: '3.3'
+
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:v2.0-alpine
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - traefik
+    command: traefik --configFile=/etc/traefik/traefik.yml
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./conf:/etc/traefik/
+      - ./logs:/data/logs
+      # 仅限标准的 Linux 环境
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    expose:
+      - 80
+      - 443
+      - 8080
+      - 8081
+    extra_hosts:
+      - "traefik.lab.io:127.0.0.1"
+      - "dash.traefik.lab.io:127.0.0.1"
+      - "ping.traefik.lab.io:127.0.0.1"
+
+# 记得先创建外部网卡
+# docker network create traefik
+networks:
+  traefik:
+    external: true

@@ -1,0 +1,112 @@
+##############################################################################
+# 全局设置
+##############################################################################
+
+global:
+  checkNewVersion: true
+  # 不上报统计信息
+  sendAnonymousUsage: false
+
+##############################################################################
+# 入口点设置
+##############################################################################
+
+entryPoints:
+  # 默认前端
+  http:
+    address: :80
+  https:
+    address: :443
+  # Ping 端口
+  traefik-ping:
+    address: :8081
+
+##############################################################################
+# 日志设置
+##############################################################################
+
+log:
+  # 日志等级（默认 ERROR）
+  level: INFO
+  # 日志默认会打印到 stdout，如果不指定 filePath，默认使用 stdout
+  filePath: /data/logs/traefik.log
+  # 格式目前支持 "json" 和 "common"（默认）
+  format: common
+
+##############################################################################
+# 访问日志设置
+##############################################################################
+
+accessLog:
+  # 日志默认会打印到 stdout，如果不指定 filePath，默认使用 stdout
+  filePath: /data/logs/access.log
+  # 格式目前支持 "json" 和 "common"（默认）
+  format: common
+
+##############################################################################
+# API 及控制台配置：https://docs.traefik.io/operations/api/
+##############################################################################
+
+# 启用 API 以及控制台，会自动配置一个名为 api@internal 的 service 供调用
+api:
+  # 开启后会自动创建一个名为 traefik 的入口点并映射 8080 端口
+  # 如果你配置了名为 traefik 的入口点，那么就不会触发自动配置
+  insecure: true
+  # 开启控制台（默认开启）
+  dashboard: true
+
+##############################################################################
+# Ping 配置：https://docs.traefik.io/operations/ping/
+##############################################################################
+
+# 启用 ping
+ping:
+  # 入口点名称，默认主 traefik
+  entryPoint: traefik-ping
+
+##############################################################################
+# ACME 配置：https://docs.traefik.io/https/acme/
+##############################################################################
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: example@lab.io
+      storage: /etc/traefik/acme.json
+      httpChallenge:
+        entryPoint: http
+
+##############################################################################
+# 文件代理设置：https://docs.traefik.io/providers/file/
+##############################################################################
+
+providers:
+  file:
+    filename: /etc/traefik/dync_conf.yml
+    # 监控文件变化
+    watch: true
+
+##############################################################################
+# Docker 后端设置：https://docs.traefik.io/providers/docker/
+##############################################################################
+
+  # 启用 Docker 后端
+  docker:
+    # Docker 服务后端
+    endpoint: "unix:///var/run/docker.sock"
+    defaultRule: "Host(`traefik.lab.io`)"
+    # 监控 docker 变化
+    watch: true
+    # 使用绑定端口的 IP 地址取代内部私有网络（默认关闭）
+    useBindPortIP: false
+    # 对容器默认进行暴露（默认开启）
+    # 如果关闭选项，则容器不包含 `traefik.enable=true` 标签，就不会被暴露
+    exposedByDefault: false
+    # 使用 Swarm Mode（默认关闭）
+    swarmMode: false
+    # 启用 docker TLS 链接（可选配置）
+    # tls:
+    #   ca: /etc/ssl/ca.crt
+    #   cert: /etc/ssl/docker.cert
+    #   key: /etc/ssl/docker.key
+    #   insecureSkipVerify: true

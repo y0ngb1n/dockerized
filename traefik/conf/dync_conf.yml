@@ -1,0 +1,63 @@
+##############################################################################
+# 路由设置
+##############################################################################
+
+http:
+  routers:
+    http-to-traefik-dashboard:
+      rule: "Host(`dash.traefik.lab.io`, `traefik.lab.io`)"
+      entryPoints:
+        - http
+      middlewares:
+        - redirect-to-https
+      service: api@internal
+    https-to-traefik-dashboard:
+      rule: "Host(`dash.traefik.lab.io`, `traefik.lab.io`)"
+      entryPoints:
+        - https
+      middlewares:
+        - enable-gzip-compression
+        - basic-auth
+      service: api@internal
+      tls:
+        certResolver: letsencrypt
+    traefik-ping:
+      rule: "Host(`ping.traefik.lab.io`)"
+      entryPoints:
+        - https
+      middlewares:
+        - ping-replacepathregex
+      service: traefik-ping
+      tls:
+        certResolver: letsencrypt
+
+##############################################################################
+# 中间件设置
+##############################################################################
+
+  middlewares:
+    redirect-to-https:
+      redirectScheme:
+        scheme: https
+    enable-gzip-compression:
+      compress: {}
+    basic-auth:
+      basicAuth:
+        users:
+          # https://www.htaccesstools.com/htpasswd-generator/
+          # admin:traefik
+          - "admin:$apr1$xiHrCH3C$ZAbq0R3PiKnTWzX4rEGO41"
+    ping-replacepathregex:
+      replacePathRegex:
+        regex: "^/$"
+        replacement: "/ping"
+
+##############################################################################
+# 服务设置
+##############################################################################
+
+  services:
+    traefik-ping:
+      loadBalancer:
+        servers:
+        - url: "http://127.0.0.1:8081"
