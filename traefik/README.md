@@ -15,9 +15,10 @@ docker-compose up -d
 
 ---
 
-## 🚀️ Getting Started
+## 🚀️ 使用指南
 
 ```bash
+# 获取源码
 mkdir -p /usr/local/docker/traefik ; cd $_
 git svn clone https://github.com/y0ngb1n/dockerized/trunk/traefik .
 
@@ -35,7 +36,7 @@ docker-compose up -d
 `acme.json` 用来存放 Let’s Encrypt 的凭证信息，该文件的权限必须为 `600`（[参考文档](https://docs.traefik.io/https/acme/#storage)），否则无法签发证书。
 
 ```bash
-# 主动持载时要先执行以下命令，如让容器自动创建可以忽略以下命令
+# 主动挂载时须要先执行以下命令 / 或忽略以下命令，让容器自动创建
 touch ./conf/acme.json && chmod 600 ./conf/acme.json
 ```
 
@@ -50,3 +51,4 @@ touch ./conf/acme.json && chmod 600 ./conf/acme.json
 + https://soulteary.com/2018/09/07/some-additional-details-using-traefik.html
 + [Nginx、HAProxy 和 Traefik 负载均衡能力对比](https://zhuanlan.zhihu.com/p/41354937)
 + https://github.com/Praqma/learn-traefik
++ https://medium.com/@containeroo/traefik-2-0-docker-a-simple-step-by-step-guide-e0be0c17cfa5
