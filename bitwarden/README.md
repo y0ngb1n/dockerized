@@ -62,6 +62,12 @@ docker-compose -f docker-compose.custom.yml up -d
 - [ ] 支持 nginx-proxy
 - [ ] 支持 traefik
 
+## 🕹 其它方案
+
+- [Bitwarden](https://bitwarden.com/)：Bitwarden 官方服务
+- [1Password](https://1password.com/)：知名密码管理软件 1Password
+- [password-generator](https://github.com/mrjooz/password-generator)：一款密码在线生成工具
+
 ## 🔗️ 参考链接
 
 - [為什麼今天就該開始使用密碼管理器](https://medium.com/@doraemon801031/%E7%82%BA%E4%BB%80%E9%BA%BC%E4%BB%8A%E5%A4%A9%E5%B0%B1%E8%A9%B2%E9%96%8B%E5%A7%8B%E4%BD%BF%E7%94%A8%E5%AF%86%E7%A2%BC%E7%AE%A1%E7%90%86%E5%99%A8-9884f4de4639)
