@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  bitwarden:
+    container_name: 'bitwarden'
+    image: '${BW_IMAGE_ALPINE}'
+    restart: always
+    ports:
+      - '80:80'
+    expose:
+      - 80
+      - 3012 # WebSocket
+    env_file: config.env
+    environment:
+      VIRTUAL_HOST: '${BW_DOMAINS}'
+    volumes:
+      - './bw-data/:/data/'

@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  bitwarden:
+    container_name: 'bitwarden'
+    image: 'bitwardenrs/server:1.12.0-alpine'
+    restart: always
+    ports:
+      - '80:80'
