@@ -67,3 +67,4 @@ chmod +x /usr/local/bin/docker-compose
 [follow-me-install-kubernetes-cluster](https://github.com/opsnull/follow-me-install-kubernetes-cluster) | 和我一步步部署 Kubernetes 集群 | ![GitHub stars](https://flat.badgen.net/github/stars/opsnull/follow-me-install-kubernetes-cluster)
 [kubernetes-handbook](https://github.com/rootsongjc/kubernetes-handbook) | Kubernetes 中文指南/云原生应用架构实践手册 | ![GitHub stars](https://flat.badgen.net/github/stars/rootsongjc/kubernetes-handbook)
 [kubernetes-handbook](https://github.com/feiskyer/kubernetes-handbook) | Kubernetes 指南 | ![GitHub stars](https://flat.badgen.net/github/stars/feiskyer/kubernetes-handbook)
+[kubernetes-basicLearning](https://github.com/knrt10/kubernetes-basicLearning) | 从 0 开始教你学会 K8S | ![GitHub stars](https://flat.badgen.net/github/stars/knrt10/kubernetes-basicLearning)
