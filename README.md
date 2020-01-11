@@ -28,6 +28,10 @@ chmod +x /usr/local/bin/docker-compose
 
 ## ⚗️ 资源推荐
 
+### 镜像加速
+
+- [Docker Hub 镜像加速器](https://gist.github.com/y0ngb1n/7e8f16af3242c7815e7ca2f0833d3ea6)
+
 ### 在线体验
 
 + [Play with Docker](https://labs.play-with-docker.com/)
