@@ -1,8 +1,6 @@
 # [Pi-hole](https://pi-hole.net/) 过滤家中广告
 
-[![GitHub Repo](https://flat.badgen.net/github/tag/pi-hole/docker-pi-hole?icon=github&label=pi-hole/docker-pi-hole)](https://github.com/pi-hole/docker-pi-hole)
-
-> 截至目前该镜像为 **v4.2.2** 版本
+> 当前版本为 **v4.2.2**，源镜像最新稳定版本 [![GitHub Repo](https://flat.badgen.net/github/release/pi-hole/docker-pi-hole/stable?icon=github&label=pi-hole/docker-pi-hole)](https://github.com/pi-hole/docker-pi-hole)
 
 ![pi-hole's dashboard](https://i0.wp.com/pi-hole.net/wp-content/uploads/2018/12/dashboard.png)
 
