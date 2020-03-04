@@ -37,6 +37,15 @@ chmod +x /usr/local/bin/docker-compose
 + [Play with Docker](https://labs.play-with-docker.com/)
 + [Play with Kubernetes](https://labs.play-with-k8s.com/)
 
+### 实用工具
+
+库名 | 简述 | Stars
+--- | --- | ---
+[watchtower](https://github.com/containrrr/watchtower) | 自动更新 Docker 容器 | ![GitHub stars](https://flat.badgen.net/github/stars/containrrr/watchtower)
+[docker-gc](https://github.com/spotify/docker-gc) | 容器和镜像的垃圾回收器 | ![GitHub stars](https://flat.badgen.net/github/stars/spotify/docker-gc)
+[docker-slim](https://github.com/docker-slim/docker-slim) | 面向容器的神奇减肥药 | ![GitHub stars](https://flat.badgen.net/github/stars/docker-slim/docker-slim)
+[ctop](https://github.com/bcicen/ctop) | 容器的类顶层接口 | ![GitHub stars](https://flat.badgen.net/github/stars/bcicen/ctop)
+
 ### 开源仓库
 
 库名 | 简述 | Stars
