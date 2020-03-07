@@ -50,11 +50,12 @@ chmod +x /usr/local/bin/docker-compose
 
 库名 | 简述 | Stars
 --- | --- | ---
-[awesome-docker](https://github.com/veggiemonk/awesome-docker) | A curated list of Docker resources and projects | ![GitHub stars](https://flat.badgen.net/github/stars/veggiemonk/awesome-docker)
+[docker-cheat-sheet](https://github.com/wsargent/docker-cheat-sheet) | Docker Cheat Sheet | ![GitHub stars](https://flat.badgen.net/github/stars/wsargent/docker-cheat-sheet)
 [docker_practice](https://github.com/yeasy/docker_practice) | Docker — 从入门到实践 | ![GitHub stars](https://flat.badgen.net/github/stars/yeasy/docker_practice)
+[awesome-docker](https://github.com/veggiemonk/awesome-docker) | A curated list of Docker resources and projects | ![GitHub stars](https://flat.badgen.net/github/stars/veggiemonk/awesome-docker)
+[awesome-selfhosted](https://github.com/Kickball/awesome-selfhosted) | Selfhosting is the process of locally hosting and managing applications instead of renting from SaaS providers. | ![GitHub stars](https://flat.badgen.net/github/stars/Kickball/awesome-selfhosted)
 [distroless](https://github.com/GoogleContainerTools/distroless) | Language focused docker images, minus the operating system | ![GitHub stars](https://flat.badgen.net/github/stars/GoogleContainerTools/distroless)
 [gcr](https://github.com/mritd/gcr) | [GCR](https://gcr.io/) 同步仓库 | ![GitHub stars](https://flat.badgen.net/github/stars/mritd/gcr)
-[awesome-selfhosted](https://github.com/Kickball/awesome-selfhosted) | Selfhosting is the process of locally hosting and managing applications instead of renting from SaaS providers. | ![GitHub stars](https://flat.badgen.net/github/stars/Kickball/awesome-selfhosted)
 
 ### 同类仓库
 
