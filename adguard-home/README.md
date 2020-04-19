@@ -46,6 +46,11 @@ docker-compose up -d
 [EasyList](https://easylist.to/) | `https://justdomains.github.io/blocklists/lists/easylist-justdomains.txt`</br>`https://justdomains.github.io/blocklists/lists/easyprivacy-justdomains.txt`
 [NoCoin adblock list](https://github.com/hoshsadiq/adblock-nocoin-list) | `https://justdomains.github.io/blocklists/lists/nocoin-justdomains.txt`
 
+## 替代产品
+
++ [Pi-hole](https://pi-hole.net/)
++ [NextDNS](https://nextdns.io/)
+
 ## 参考链接
 
 + [AdGuard Home：用 DNS 巧去广告，所有设备都能用](https://sspai.com/post/52813)

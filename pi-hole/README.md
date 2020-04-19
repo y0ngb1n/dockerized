@@ -68,6 +68,11 @@ https://hosts-file.net/ad_servers.txt
 
 一键更新规则源：`wget -O adlists.list https://v.firebog.net/hosts/lists.php?type=tick`
 
+## 替代产品
+
++ [AdGuard Home](https://adguard.com/en/adguard-home/overview.html)
++ [NextDNS](https://nextdns.io/)
+
 ## 参考链接
 
 - [Pi-hole 拦截广告](https://www.troyhunt.com/mmm-pi-hole/)
