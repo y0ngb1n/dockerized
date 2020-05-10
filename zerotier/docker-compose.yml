@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  zerotier-moon:
+    image: seedgou/zerotier-moon
+    container_name: zerotier-moon
+    restart: always
+    command:
+    - -4$HOST_IPV4_ADDR
+    environment:
+    - HOST_IPV4_ADDR=${HOST_IPV4_ADDR}
+    ports:
+    - "9993:9993/udp"
