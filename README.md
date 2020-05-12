@@ -4,6 +4,13 @@
 
 `🐳 一处构建，处处运行 🚢`
 
+[![Author](https://flat.badgen.net/badge/author/y0ngb1n/orange)](https://sourl.cn/TpLCyc)
+[![Docker Hub](https://flat.badgen.net/badge/dockerhub/y0ngb1n?icon=docker&label=hub)](https://sourl.cn/WBkUGt)
+![Made with ❤](https://flat.badgen.net/badge/made%20with/%e2%9d%a4/ff69b4)
+![GitHub Stars](https://flat.badgen.net/github/stars/y0ngb1n/dockerized)
+![GitHub Forks](https://flat.badgen.net/github/forks/y0ngb1n/dockerized)
+[![Follow Me](https://img.shields.io/github/followers/y0ngb1n.svg?style=social&label=Follow%20Me)](https://github.com/y0ngb1n)
+
 ![Happy Docker](https://i.loli.net/2019/04/10/5cae05666de2a.jpg "Happy Docker!")
 
 </div>
@@ -45,6 +52,8 @@ chmod +x /usr/local/bin/docker-compose
 [docker-gc](https://github.com/spotify/docker-gc) | 容器和镜像的垃圾回收器 | ![GitHub stars](https://flat.badgen.net/github/stars/spotify/docker-gc)
 [docker-slim](https://github.com/docker-slim/docker-slim) | 面向容器的神奇减肥药 | ![GitHub stars](https://flat.badgen.net/github/stars/docker-slim/docker-slim)
 [ctop](https://github.com/bcicen/ctop) | 容器的类顶层接口 | ![GitHub stars](https://flat.badgen.net/github/stars/bcicen/ctop)
+[portainer](https://github.com/portainer/portainer) | 一款 Docker 可视化管理工具 | ![GitHub stars](https://flat.badgen.net/github/stars/portainer/portainer)
+[lazydocker](https://github.com/jesseduffield/lazydocker) | 基于终端的一个可视化查询工具 | ![GitHub stars](https://flat.badgen.net/github/stars/jesseduffield/lazydocker)
 
 ### 开源仓库
 
