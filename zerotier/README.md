@@ -28,11 +28,14 @@ ZeroTier 官方搭建了一个行星根服务器叫做 `行星 Planet`，行星�
 - `  MOON`：卫星服务器，用户自建的私有根服务器，起到代理加速的作用；
 - `  LEAF`：叶子节点，连接行星或卫星的服务器。
 
-## 🚀 使用方式
+## 🛰 ZeroTier Moons
+
+### 🚀 使用方式
 
 ```console
 # 0. 部署 MOON 服务器
 $ curl -sSL https://raw.githubusercontent.com/y0ngb1n/dockerized/master/zerotier/docker-compose.yml > docker-compose.yml
+$ export HOST_IPV4_ADDR=2.3.3.3
 $ docker-compose up -d
 
 # 1. 查看提示日志
@@ -63,3 +66,4 @@ $ sudo zerotier-cli listpeers
 
 + [远程办公：无需公网、无需服务端 5 分钟实现内网穿透](https://www.jianshu.com/p/bb4751534c1b)
 + [ZeroTier — P2P 内网穿透工具](https://www.newlearner.site/2019/07/30/zerotier.html)
++ [建立自定义 ZeroTier Moons 服务器](https://github.com/aturl/awesome-anti-gfw/blob/master/ZeroTier/ZeroTier_Moons.md)
