@@ -1,0 +1,17 @@
+version: '3.1'
+
+services:
+  app:
+    image: minio/minio
+    volumes:
+    - /var/data/minio/data:/data
+    networks:
+    - traefik_public
+    labels:
+    - traefik.frontend.rule=Host:minio.example.com
+    - traefik.port=9000
+    command: minio server /data
+
+networks:
+  traefik_public:
+    external: true

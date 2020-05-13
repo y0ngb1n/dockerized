@@ -1,0 +1,10 @@
+version: '3.1'
+
+services:
+  app:
+    image: minio/minio
+    volumes:
+     - /var/data/minio/data:/data
+    command: minio server /data
+    ports: 
+    - "9000:9000"
