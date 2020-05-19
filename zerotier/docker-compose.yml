@@ -2,7 +2,7 @@ version: '3'
 
 services:
   zerotier-moon:
-    image: seedgou/zerotier-moon
+    image: y0ngb1n/zerotier-moon:1.4.6
     container_name: zerotier-moon
     restart: always
     command:
