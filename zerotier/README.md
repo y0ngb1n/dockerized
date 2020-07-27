@@ -72,3 +72,4 @@ $ sudo zerotier-cli listpeers
 + [远程办公：无需公网、无需服务端 5 分钟实现内网穿透](https://www.jianshu.com/p/bb4751534c1b)
 + [ZeroTier — P2P 内网穿透工具](https://www.newlearner.site/2019/07/30/zerotier.html)
 + [建立自定义 ZeroTier Moons 服务器](https://github.com/aturl/awesome-anti-gfw/blob/master/ZeroTier/ZeroTier_Moons.md)
++ [异地组网不求人，OpenWrt 的 ZeroTier 插件玩法](https://youtu.be/OzKBXBwBrUQ), by 韩风Talk
