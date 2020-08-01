@@ -62,6 +62,38 @@ $ sudo zerotier-cli listpeers
 ...
 ```
 
+## 🕸️ ZeroTier One
+
+### 创建 `zerotier-one` 客户端
+
+```bash
+docker run --name=zerotier-one -d\
+  --device=/dev/net/tun --net=host\
+  --cap-add=NET_ADMIN --cap-add=SYS_ADMIN\
+  -v /var/lib/zerotier-one:/var/lib/zerotier-one\
+  --restart unless-stopped\
+  zyclonite/zerotier:1.4.6
+```
+
+### 使用方式
+
+```console
+docker exec zerotier-one zerotier-cli info
+
+# 将客户端加入现有的网络
+docker exec zerotier-one zerotier-cli join <your_network_id>
+
+# 将客户端加入现有的 MOON
+docker exec zerotier-one zerotier-cli orbit fd09b1b0b3 fd09b1b0b3
+
+# 查看组网信息
+docker exec zerotier-one zerotier-cli listnetworks
+docker exec zerotier-one zerotier-cli listpeers
+
+# 解锁更多
+docker exec zerotier-one zerotier-cli -h
+```
+
 ## 🎮 推荐搭配
 
 + [微软远程桌面](https://www.iplaysoft.com/microsoft-remote-desktop.html) — 微软官方免费远程桌面控制 Windows 的软件 APP
