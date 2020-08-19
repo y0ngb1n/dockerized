@@ -35,6 +35,8 @@ docker-compose up -d
 项目 | AD 文件地址 | 推荐
 --: | --- | :-:
 [the Block List Project](https://blocklist.site/app/) | We have lists to block ads, scams, porn, malware, ransomware & more... | ❤
+[anti-AD](https://github.com/privacy-protection-tools/anti-AD) | `https://anti-ad.net/easylist.txt` | ❤
+[abp-filters/abp-filters-anti-cv](https://github.com/abp-filters/abp-filters-anti-cv) | `https://easylist-downloads.adblockplus.org/abp-filters-anti-cv.txt` | ❤
 [my-pihole-blocklists](https://github.com/chadmayfield/my-pihole-blocklists) | <https://github.com/chadmayfield/my-pihole-blocklists/tree/master/lists>
 [vokins/yhosts](https://github.com/vokins/yhosts) |  `https://raw.githubusercontent.com/vokins/yhosts/master/hosts`
 [neoFelhz/neohosts](https://github.com/neofelhz/neohosts) | `https://hosts.nfz.moe/127.0.0.1/full/hosts`
@@ -55,3 +57,4 @@ docker-compose up -d
 
 + [AdGuard Home：用 DNS 巧去广告，所有设备都能用](https://sspai.com/post/52813)
 + [想获得「干净」的网页浏览体验？你需要这份全平台去广告指南](https://sspai.com/post/56617)
++ [部署在局域网里的 AdGuard Home](https://scomper.me/macos/2020-08-18), by @scomper
