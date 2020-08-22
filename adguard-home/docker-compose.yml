@@ -4,11 +4,14 @@ services:
   adguard-home:
     image: ${AGH_IMAGE}
     container_name: adguard-home
-    restart: always
+    restart: unless-stopped
+    volumes:
+      - /var/data/adguard-home-data/conf:/opt/adguardhome/conf
+      - /var/data/adguard-home-data/work:/opt/adguardhome/work
     networks:
       - nginx-proxy
     ports:
-      - "53:53"
+      - "53:53/tcp"
       - "53:53/udp"
       - "3000:3000"
     environment:

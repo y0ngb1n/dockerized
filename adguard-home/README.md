@@ -1,9 +1,9 @@
 # [AdGuard Home](https://adguard.com/zh_cn/adguard-home/overview.html) - 过滤家中广告
 
-> 当前版本为 **v0.98.1**，源镜像最新版本 [![](https://flat.badgen.net/github/tag/AdguardTeam/AdGuardHome?icon=github&label=AdguardTeam/AdGuardHome)](https://github.com/AdguardTeam/AdGuardHome)
+> 当前版本为 **v0.103.3**，源镜像最新版本 [![](https://flat.badgen.net/github/tag/AdguardTeam/AdGuardHome?icon=github&label=AdguardTeam/AdGuardHome)](https://github.com/AdguardTeam/AdGuardHome)
 
 <p align="center">
-    <img src="https://cdn.adguard.com/public/Adguard/Common/adguard_home.gif" width="100%"/>
+    <img src="https://cdn.adguard.com/public/Adguard/Common/adguard_home.gif"/>
 </p>
 
 ---
