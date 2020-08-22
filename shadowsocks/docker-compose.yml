@@ -1,0 +1,37 @@
+server:
+  image: easypi/shadowsocks-libev:3.3.4
+  container_name: shadowsocks-server
+  ports:
+    - "8388:8388/tcp"
+    - "8388:8388/udp"
+  environment:
+    - METHOD=chacha20-ietf-poly1305
+    - PASSWORD=BobP4mRxDiJdB6Y9e5
+  restart: always
+
+client:
+  image: easypi/shadowsocks-libev:3.3.4
+  container_name: shadowsocks-client
+  command:
+    ss-local -s 1.2.3.4
+             -p 8388
+             -m chacha20-ietf-poly1305
+             -k BobP4mRxDiJdB6Y9e5
+             -b 0.0.0.0
+             -l 1080
+             -t 60
+             --fast-open
+  ports:
+    - "1080:1080"
+  restart: always
+
+client-arm:
+  image: easypi/shadowsocks-libev-arm:3.3.4
+  container_name: shadowsocks-client-arm
+  ports:
+    - "1080:1080"
+  environment:
+    - SERVER_ADDR=1.2.3.4
+    - METHOD=chacha20-ietf-poly1305
+    - PASSWORD=BobP4mRxDiJdB6Y9e5
+  restart: always
