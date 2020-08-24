@@ -3,7 +3,7 @@
 > 当前版本为 **v0.103.3**，源镜像最新版本 [![](https://flat.badgen.net/github/tag/AdguardTeam/AdGuardHome?icon=github&label=AdguardTeam/AdGuardHome)](https://github.com/AdguardTeam/AdGuardHome)
 
 <p align="center">
-    <img src="https://cdn.adguard.com/public/Adguard/Common/adguard_home.gif"/>
+  <img src="https://cdn.jsdelivr.net/gh/y0ngb1n/dockerized/adguard-home/screenshots/dashboard.jpeg" alt="Hello AdGuard Home!"/>
 </p>
 
 ---
@@ -34,7 +34,7 @@ docker-compose up -d
 
 项目 | AD 文件地址 | 推荐
 --: | --- | :-:
-[the Block List Project](https://blocklist.site/app/) | We have lists to block ads, scams, porn, malware, ransomware & more... | ❤
+[the Block List Project](https://github.com/blocklistproject/lists) | We have lists to block ads, scams, porn, malware, ransomware & more... » [reddit](https://www.reddit.com/r/blocklistproject/) | ❤
 [anti-AD](https://github.com/privacy-protection-tools/anti-AD) | `https://anti-ad.net/easylist.txt` | ❤
 [abp-filters/abp-filters-anti-cv](https://github.com/abp-filters/abp-filters-anti-cv) | `https://easylist-downloads.adblockplus.org/abp-filters-anti-cv.txt` | ❤
 [my-pihole-blocklists](https://github.com/chadmayfield/my-pihole-blocklists) | <https://github.com/chadmayfield/my-pihole-blocklists/tree/master/lists>
