@@ -1,0 +1,29 @@
+version: '3.3'
+services:
+  prometheus-server:
+    # https://github.com/bitnami/bitnami-docker-prometheus
+    image: bitnami/prometheus:2.23.0
+    container_name: prometheus-server
+    volumes:
+      # https://prometheus.io/docs/prometheus/latest/configuration/configuration/
+      - /etc/prometheus/prometheus.yml:/opt/bitnami/prometheus/conf/prometheus.yml
+      - prometheus_data:/opt/bitnami/prometheus/data
+    command:
+      - "--config.file=/opt/bitnami/prometheus/conf/prometheus.yml"
+      - "--storage.tsdb.path=/opt/bitnami/prometheus/data"
+      - "--web.console.libraries=/opt/bitnami/prometheus/conf/console_libraries"
+      - "--web.console.templates=/opt/bitnami/prometheus/conf/consoles"
+      # https://www.prometheus.io/docs/guides/basic-auth/
+      - --web.external-url=http://localhost:80/prometheus
+      - --web.route-prefix=/
+    ports:
+      - '9090:9090'
+    logging:
+      driver: json-file
+      options:
+        max-size: "200k"
+        max-file: "10"
+    restart: unless-stop
+
+volumes:
+  prometheus_data:
