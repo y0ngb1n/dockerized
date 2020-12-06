@@ -1,6 +1,6 @@
 # [Shadowsocks](https://github.com/shadowsocks/shadowsocks-libev) - 科学上网
 
-> 当前版本为 **v3.3.4**，源镜像最新版本 [![](https://flat.badgen.net/github/tag/EasyPi/docker-shadowsocks-libev?icon=github&label=EasyPi/docker-shadowsocks-libev)](https://github.com/EasyPi/docker-shadowsocks-libev)
+> 当前版本为 **v3.3.5**，源镜像最新版本 [![](https://flat.badgen.net/github/tag/EasyPi/docker-shadowsocks-libev?icon=github&label=EasyPi/docker-shadowsocks-libev)](https://github.com/EasyPi/docker-shadowsocks-libev)
 
 ![Hello Shadowsocks!](https://i.loli.net/2020/08/22/Z3f7rcFdXtyMO1B.png)
 
