@@ -1,0 +1,27 @@
+version: '3.3'
+services:
+  grafana-server:
+    # https://github.com/bitnami/bitnami-docker-grafana
+    image: bitnami/grafana:7.3.4
+    container_name: grafana-server
+    environment:
+      # https://grafana.com/docs/grafana/latest/administration/configuration/
+      - 'GF_SECURITY_ADMIN_USER=admin'
+      - 'GF_SECURITY_ADMIN_PASSWORD=admin_password'
+      # https://grafana.com/tutorials/run-grafana-behind-a-proxy/
+      - 'GF_SERVER_HTTP_PORT=8848'
+      - 'GF_SERVER_ROOT_URL=%(protocol)s://%(domain)s:%(http_port)s/grafana/'
+      - 'GF_SERVER_SERVE_FROM_SUB_PATH=true'
+    volumes:
+      - grafana_data:/opt/bitnami/grafana/data
+    ports:
+      - '8848:8848'
+    logging:
+      driver: json-file
+      options:
+        max-size: "200k"
+        max-file: "10"
+    restart: unless-stop
+
+volumes:
+  grafana_data:
