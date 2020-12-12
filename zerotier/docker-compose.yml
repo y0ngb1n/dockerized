@@ -2,7 +2,7 @@ version: '3'
 
 services:
   zerotier-moon:
-    image: y0ngb1n/zerotier-moon:1.4.6
+    image: '${ZT_IMAGE}'
     container_name: zerotier-moon
     restart: always
     command:
