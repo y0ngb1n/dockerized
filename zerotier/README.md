@@ -67,12 +67,12 @@ $ sudo zerotier-cli listpeers
 ### 创建 `zerotier-one` 客户端
 
 ```bash
-docker run --name=zerotier-one -d\
-  --device=/dev/net/tun --net=host\
-  --cap-add=NET_ADMIN --cap-add=SYS_ADMIN\
-  -v /var/lib/zerotier-one:/var/lib/zerotier-one\
-  --restart unless-stopped\
-  zyclonite/zerotier:1.4.6
+docker run --name=zerotier-one -d                \
+  --device=/dev/net/tun --net=host               \
+  --cap-add=NET_ADMIN --cap-add=SYS_ADMIN        \
+  -v /var/lib/zerotier-one:/var/lib/zerotier-one \
+  --restart unless-stopped                       \
+  zyclonite/zerotier
 ```
 
 ### 使用方式
