@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  tailscale:
+    image: "y0ngb1n/tailscale:1.8.5"
+    container_name: "tailscale"
+    restart: "unless-stopped"
+    privileged: true
+    network_mode: "host"
+    hostname: "homelab"
+    cap_add:
+      - NET_ADMIN
+      - SYS_ADMIN
+    volumes:
+      - "/dev/net/tun:/dev/net/tun"
+      - "/var/lib/tailscale:/var/lib/tailscale"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
