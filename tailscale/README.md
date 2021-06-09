@@ -32,7 +32,7 @@ version: '3.3'
 
 services:
   tailscale:
-    image: "y0ngb1n/tailscale:1.8.5"
+    image: "y0ngb1n/tailscale:latest"
     container_name: "tailscale"
     restart: "unless-stopped"
     privileged: true
