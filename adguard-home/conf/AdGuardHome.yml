@@ -21,14 +21,13 @@ dns:
   blocking_mode: default
   blocking_ipv4: ""
   blocking_ipv6: ""
-  blocked_response_ttl: 10
+  blocked_response_ttl: 60
   parental_block_host: family-block.dns.adguard.com
   safebrowsing_block_host: standard-block.dns.adguard.com
   ratelimit: 0
   ratelimit_whitelist: []
   refuse_any: true
   upstream_dns:
-  - 192.168.192.100
   - 114.114.114.114
   - 119.29.29.29
   - 223.5.5.5
@@ -48,8 +47,8 @@ dns:
   disallowed_clients: []
   blocked_hosts: []
   cache_size: 4194304
-  cache_ttl_min: 0
-  cache_ttl_max: 0
+  cache_ttl_min: 60
+  cache_ttl_max: 120
   bogus_nxdomain: []
   aaaa_disabled: true
   enable_dnssec: false
