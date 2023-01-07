@@ -9,6 +9,7 @@
 ![Made with ❤](https://flat.badgen.net/badge/made%20with/%e2%9d%a4/ff69b4)
 ![GitHub Stars](https://flat.badgen.net/github/stars/y0ngb1n/dockerized)
 ![GitHub Forks](https://flat.badgen.net/github/forks/y0ngb1n/dockerized)
+[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fy0ngb1n%2Fdockerized&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=true)](https://github.com/y0ngb1n/dockerized)
 [![Follow Me](https://img.shields.io/github/followers/y0ngb1n.svg?style=social&label=Follow%20Me)](https://github.com/y0ngb1n)
 
 ![Happy Docker](https://i.loli.net/2019/04/10/5cae05666de2a.jpg "Happy Docker!")
