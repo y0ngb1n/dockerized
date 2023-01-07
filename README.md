@@ -18,7 +18,7 @@
 
 ---
 
-## 一键安装 𝑫𝒐𝒄𝒌𝒆𝒓 [![GitHub stable release](https://flat.badgen.net/github/release/docker/docker-ce/stable?label)](https://github.com/docker/docker-ce/releases)
+## 一键安装 𝑫𝒐𝒄𝒌𝒆𝒓 [![GitHub stable release](https://flat.badgen.net/github/release/moby/moby/stable?label)](https://github.com/moby/moby/releases)
 
 ```bash
 curl -fsSL https://get.docker.com | bash
