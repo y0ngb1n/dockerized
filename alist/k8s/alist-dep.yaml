@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alist-dep
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alist
+  template:
+    metadata:
+      labels:
+        app: alist
+    spec:
+      containers:
+      - name: alist
+        image: xhofe/alist:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
