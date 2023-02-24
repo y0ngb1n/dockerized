@@ -1,0 +1,61 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: chatgpt-telegram-bot-config
+stringData:
+  local.json: |
+    {
+      "debug": 1,
+      "bot": {
+        "token": "<TELEGRAM_BOT_TOKEN>",
+        "groupIds": [],
+        "userIds": [],
+        "chatCmd": "/chat"
+      },
+      "api": {
+        "type": "unofficial",
+        "unofficial": {
+          "accessToken": "<OPENAI_ACCESS_TOKEN>",
+          "apiReverseProxyUrl": "https://chat.duti.tech/api/conversation",
+          "model": ""
+        }
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatgpt-telegram-bot-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chatgpt-telegram-bot
+  template:
+    metadata:
+      labels:
+        app: chatgpt-telegram-bot
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: worker-01-vultr-tok
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 1.1.1.1
+          - 1.0.0.1
+          - 8.8.8.8
+      containers:
+        - name: chatgpt-telegram-bot
+          # https://github.com/RainEggplant/chatgpt-telegram-bot
+          image: y0ngb1n/chatgpt-telegram-bot:v2.1.1
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: /app/config/local.json
+              name: chatgpt-telegram-bot-vol
+              subPath: local.json
+      volumes:
+        - name: chatgpt-telegram-bot-vol
+          secret:
+            secretName: chatgpt-telegram-bot-config
+            optional: false
