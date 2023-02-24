@@ -6,6 +6,8 @@
 
 ## TL;DR;
 
-```
+```bash
+kubectl create ns alist
 kubectl apply -f ./k8s
+kubectl get all -n alist -owide
 ```

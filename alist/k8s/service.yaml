@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: alist-svc
+  namespace: alist
+spec:
+  selector:
+    app: alist
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 5244
+      protocol: TCP
+      nodePort: 31747

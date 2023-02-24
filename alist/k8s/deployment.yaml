@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alist-dep
+  namespace: alist
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alist
+  template:
+    metadata:
+      labels:
+        app: alist
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: worker-01-tencent-gz
+      containers:
+        - name: alist
+          image: xhofe/alist:v3.12.0
+          env:
+            - name: PUID
+              value: "0"
+            - name: PGID
+              value: "0"
+            - name: UMASK
+              value: "022"
+          volumeMounts:
+            - mountPath: /opt/alist/data
+              name: config-vol
+          ports:
+            - containerPort: 5244
+              name: http
+              protocol: TCP
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+      volumes:
+        - name: config-vol
+          hostPath:
+            path: /etc/alist
