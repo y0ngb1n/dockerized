@@ -26,6 +26,7 @@
 - [AdGuard Home](https://github.com/y0ngb1n/dockerized/tree/master/adguard-home) - 过滤家中广告 🐳
 - [AList](https://github.com/y0ngb1n/dockerized/tree/master/alist) - 支持多存储的文件列表程序 ☸️
 - [Cloudflare Tunnel](https://github.com/y0ngb1n/dockerized/tree/master/cloudflare-tunnel) - Cloudflare 出品的一款轻量级代理工具 ☸️
+- [Tailscale](https://github.com/y0ngb1n/dockerized/tree/master/tailscale) - 搭建属于自己的虚拟局域网 🐳 ☸️
 
 ---
 

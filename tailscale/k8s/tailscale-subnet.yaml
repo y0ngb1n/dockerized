@@ -1,0 +1,80 @@
+############################################################################
+# $ headscale preauthkeys create --help
+# $ headscale --user default preauthkeys create --reusable --ephemeral --expiration 180d
+# $ kubectl create ns tailscale-subnet
+# $ kubectl apply -f .
+############################################################################
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tailscale-subnet
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tailscale-config
+  namespace: tailscale-subnet
+stringData:
+  TAILSCALE_LOGIN_SERVER: <LOGIN_SERVER_URL>
+  TAILSCALE_AUTH_KEY: <TS_AUTH_KEY>
+  TAILSCALE_ACCEPT_DNS: "false"
+  TAILSCALE_ADVERTISE_TAGS: "tag:k3s-node"
+  TAILSCALED_TUN: "userspace-networking"
+  # https://tailscale.com/kb/1011/log-mesh-traffic/?tab=linux
+  TS_NO_LOGS_NO_SUPPORT: "true"
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: tailscale-subnet-router-ds
+  namespace: tailscale-subnet
+spec:
+  selector:
+    matchLabels:
+      app: tailscale-subnet-router
+  template:
+    metadata:
+      labels:
+        app: tailscale-subnet-router
+    spec:
+      terminationGracePeriodSeconds: 5
+      initContainers:
+        # https://github.com/tailscale/tailscale/tree/main/docs/k8s
+        - name: sysctler
+          image: busybox
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: true
+          command: ["/bin/sh"]
+          args:
+            - -c
+            - sysctl -w net.ipv4.ip_forward=1 net.ipv6.conf.all.forwarding=1
+          resources:
+            requests:
+              cpu: 1m
+              memory: 1Mi
+      containers:
+        - name: tailscaled
+          # https://github.com/mvisonneau/docker-tailscale
+          # https://hub.docker.com/r/mvisonneau/tailscale/tags
+          # https://github.com/mvisonneau/helm-charts/tree/main/charts/tailscale-relay
+          image: "mvisonneau/tailscale:v1.36.1"
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: tailscale-config
+          command:
+            - sh
+            - -c
+            - export TAILSCALE_ADVERTISE_ROUTES=$(ip route | grep src | grep eth0 | awk '{print $1}');
+              /usr/local/bin/entrypoint
+          lifecycle:
+            preStop:
+              exec:
+                # SIGTERM triggers a quick exit; gracefully terminate instead
+                command: ["tailscale", "logout"]
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+            privileged: true
