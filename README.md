@@ -18,6 +18,16 @@
 
 ---
 
+**说明**
+
+🐳 Docker / Compose \
+☸️ Kubernetes
+
+- [AdGuard Home](https://github.com/y0ngb1n/dockerized/tree/master/adguard-home) - 过滤家中广告 🐳
+- [AList](https://github.com/y0ngb1n/dockerized/tree/master/alist) - 支持多存储的文件列表程序 ☸️
+
+---
+
 ## 一键安装 𝑫𝒐𝒄𝒌𝒆𝒓 [![GitHub stable release](https://flat.badgen.net/github/release/moby/moby/stable?label)](https://github.com/moby/moby/releases)
 
 ```bash
