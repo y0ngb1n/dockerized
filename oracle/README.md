@@ -7,3 +7,5 @@
 ---
 
 - 🤪 官方镜像「[oracle/docker-images](https://github.com/oracle/docker-images/)」
+- [gvenzl/oracle-free](https://hub.docker.com/r/gvenzl/oracle-free)
+- [gvenzl/oracle-xe](https://hub.docker.com/r/gvenzl/oracle-xe)
