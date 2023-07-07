@@ -27,6 +27,7 @@
 - [AList](https://github.com/y0ngb1n/dockerized/tree/master/alist) - 支持多存储的文件列表程序 ☸️
 - [Beancount](https://github.com/y0ngb1n/dockerized/tree/master/beancount) - 一个优秀的开源复式记账工具 ☸️
 - [Bitwarden](https://github.com/y0ngb1n/dockerized/tree/master/bitwarden) - 私人密码管理器 🐳
+- [Blocky](https://github.com/y0ngb1n/dockerized/tree/master/blocky) - 一个轻量级的 DNS 代理工具，支持 DoT/DoH 加密以及广告过滤 🐳
 - [Cloudflare Tunnel](https://github.com/y0ngb1n/dockerized/tree/master/cloudflare-tunnel) - Cloudflare 出品的一款轻量级代理工具 ☸️
 - [Tailscale VPN](https://github.com/y0ngb1n/dockerized/tree/master/tailscale) - 搭建属于自己的虚拟局域网 🐳 ☸️
 - [SonarQube](https://github.com/y0ngb1n/dockerized/tree/master/sonarqube) - 代码质量检测平台 🐳

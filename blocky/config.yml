@@ -1,0 +1,89 @@
+ports:
+  dns: 53
+  http: 4000
+connectIPVersion: v4
+bootstrapDns:
+  - upstream: tcp-tls:1.1.1.1:853
+    ips:
+      - 1.1.1.1
+upstream:
+  default:
+    - tcp-tls:1.1.1.1:853
+    - tcp-tls:1.0.0.1:853
+    - tcp-tls:dot.pub:853
+    - https://1.1.1.1/dns-query
+    - https://1.0.0.1/dns-query
+    - https://doh.pub/dns-query
+    - tcp-tls:dns.alidns.com:853
+    - https://dns.alidns.com/dns-query
+    - https://dns.bboysoul.cn/dns-query
+    - https://dns-backup.bboysoul.cn/dns-query
+filtering:
+  queryTypes:
+    - AAAA
+upstreamTimeout: 2s
+startVerifyUpstream: true
+
+customDNS:
+  customTTL: 1h
+  rewrite:
+    home: lan
+    replace-me.com: with-this.com
+  mapping:
+    # 解析定义的域名及其任意子域名，可方便地搭配 Traefik 使用
+    lab.io: 192.168.50.100
+    lab.com: 192.168.50.100
+
+conditional:
+  mapping:
+    feedly.com: https://dns.bboysoul.cn/dns-query
+    google.com.hk: https://dns.bboysoul.cn/dns-query
+    docker.com: https://dns.bboysoul.cn/dns-query
+    cloudfront.net: https://dns.bboysoul.cn/dns-query
+    wikipedia.org: https://dns.bboysoul.cn/dns-query
+    youtube.com: https://dns.bboysoul.cn/dns-query
+    twitter.com: https://dns.bboysoul.cn/dns-query
+    facebook.com: https://dns.bboysoul.cn/dns-query
+    instagram.com: https://dns.bboysoul.cn/dns-query
+    githubusercontent.com: https://dns.bboysoul.cn/dns-query
+
+blocking:
+  blockType: zeroIP
+  refreshPeriod: 24h
+  downloadTimeout: 4m
+  downloadCooldown: 10s
+  blackLists:
+    ads:
+      - https://anti-ad.net/domains.txt
+      - |
+        some-ads-domain.com
+    special:
+      - https://ghproxy.com/https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews/hosts
+  clientGroupsBlock:
+    default:
+      - ads
+      - special
+
+log:
+  level: info
+  format: text
+  timestamp: true
+
+caching:
+  minTime: 1h
+  maxItemsCount: 10000
+  prefetching: true
+  prefetchExpires: 2h
+  prefetchMaxItemsCount: 100
+
+queryLog:
+  type: csv
+  target: /logs
+  logRetentionDays: 0
+
+prometheus:
+  enable: true
+  path: /metrics
+
+ede:
+  enable: true

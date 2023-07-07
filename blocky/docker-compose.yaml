@@ -1,0 +1,34 @@
+version: '3'
+services:
+  blocky:
+    # Blocky 是一个轻量级的 DNS 代理工具，支持 DoT/DoH 加密以及广告过滤
+    image: spx01/blocky:v0.21
+    container_name: blocky
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "200k"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 128M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./config.yml:/app/config.yml
+      # logs 这个目录要给 777 权限
+      - ./logs:/logs/
+      - ./blacklists:/app/blacklists/
+      - ./whitelists:/app/whitelists/
+    ports:
+      - 4000:4000
+      # DNS
+      - 53:53/tcp
+      - 53:53/udp
