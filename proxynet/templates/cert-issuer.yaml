@@ -1,0 +1,37 @@
+
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+  namespace: cert-manager
+spec:
+  acme:
+    # https://letsencrypt.org/docs/duplicate-certificate-limit/
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: <CHANGE_YOUR_EMAIL>
+    privateKeySecretRef:
+      name: letsencrypt-prod-account-key
+    solvers:
+    - selector: {}
+      http01:
+        ingress:
+          ingressClassName: nginx
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-staging
+  namespace: cert-manager
+spec:
+  acme:
+    # https://letsencrypt.org/docs/staging-environment/#rate-limits
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: <CHANGE_YOUR_EMAIL>
+    privateKeySecretRef:
+      name: letsencrypt-staging-account-key
+    solvers:
+    - selector: {}
+      http01:
+        ingress:
+          ingressClassName: nginx

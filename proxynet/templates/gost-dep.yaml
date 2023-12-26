@@ -1,0 +1,136 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gost-svc
+  namespace: proxynet
+  labels:
+    app: gost
+spec:
+  selector:
+    app: gost
+  type: ClusterIP
+  ports:
+    # - name: socks5
+    #   protocol: UDP
+    #   port: 1080
+    #   targetPort: 1080
+    # - name: http
+    #   protocol: TCP
+    #   port: 80
+    #   targetPort: 80
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: https
+    # - name: websocket
+    #   protocol: TCP
+    #   port: 8080
+    #   targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gost-dep
+  namespace: proxynet
+  annotations:
+    secret.reloader.stakater.com/reload: "tls-<CHANGE_YOUR_DOMAIN>"
+  labels:
+    app: gost
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: gost
+  template:
+    metadata:
+      labels:
+        app: gost
+    spec:
+      volumes:
+        - name: gost-config-vol
+          secret:
+            secretName: tls-<CHANGE_YOUR_DOMAIN>
+            optional: false
+      containers:
+        - name: gost-https
+          image: gogost/gost:latest
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: gost-config
+          env:
+            - name: TZ
+              value: Asia/Shanghai
+            - name: GOST_LOGGER_LEVEL
+              value: warn
+            - name: DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: gost-config
+                  key: DOMAIN
+          volumeMounts:
+            - name: gost-config-vol
+              mountPath: "/etc/cert"
+              readOnly: true
+          ports:
+            - name: https
+              containerPort: 8443
+              protocol: TCP
+            - name: metrics
+              containerPort: 9000
+              protocol: TCP
+          args:
+            - -metrics=:9000
+            - -L
+            - http2://$(USERNAME):$(PASSWORD)@:8443?certFile=/etc/cert/tls.crt&keyFile=/etc/cert/tls.key&probeResistance=$(PROBE_RESISTANCE)&knock=$(KNOCK)
+            - -F
+            - socks5://sing-box-svc.proxynet:1080
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          # startupProbe:
+          #   failureThreshold: 30
+          #   httpGet:
+          #     path: /metrics
+          #     port: 9000
+          #     scheme: HTTP
+          #   periodSeconds: 5
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+          # livenessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /metrics
+          #     port: 9000
+          #     scheme: HTTP
+          #   periodSeconds: 3
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gost-config
+  namespace: proxynet
+  labels:
+    app: gost
+type: Opaque
+stringData:
+  DOMAIN: <CHANGE_YOUR_DOMAIN>
+  USERNAME: <CHANGE_YOUR_GOST_AUTH_USERNAME>
+  PASSWORD: <CHANGE_YOUR_GOST_AUTH_PASSWORD>
+  # PROBE_RESISTANCE: code:404
+  PROBE_RESISTANCE: web:https://tarampampam.github.io/error-pages/connection/404.html
+  KNOCK: www.google.com

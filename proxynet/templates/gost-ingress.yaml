@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gost-ingress
+  namespace: proxynet
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+spec:
+  tls:
+  - secretName: tls-<CHANGE_YOUR_DOMAIN>
+    hosts:
+    - <CHANGE_YOUR_DOMAIN>
+  rules:
+  - host: <CHANGE_YOUR_DOMAIN>
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: gost-svc
+            port:
+              number: 443
