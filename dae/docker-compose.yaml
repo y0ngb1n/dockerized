@@ -1,0 +1,36 @@
+services:
+  dae:
+    restart: always
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "1"
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
+    image: daeuniverse/dae:20240618
+    container_name: dae
+    environment:
+      - TZ=Asia/Shanghai
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /sys:/sys # 关键挂载
+      - /root/dae:/etc/dae
+    networks:
+      macnet:
+        ipv4_address: 192.168.123.233
+    # mac_address: 61:c7:83:33:77:55
+    tty: true
+    privileged: true
+networks:
+  macnet:
+    external: true
+    name: macnet
+
+# docker exec -it dae dae reload

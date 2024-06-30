@@ -1,0 +1,40 @@
+subscription {
+  # 在下面填入你的订阅链接。
+}
+
+node {
+  # 支持 socks5, http, https, ss, ssr, vmess, vless, trojan, tuic, juicity, etc.
+  # Full support list: https://github.com/daeuniverse/dae/blob/main/docs/en/proxy-protocols.md
+  sing-box: ''
+  warp: ''
+  gost: ''
+}
+
+# 出站分组
+group {
+  example {
+    # 没有设置过滤器，代表使用全部节点
+
+    # 节点选择策略
+
+    # random：随机选择
+    #policy: random
+
+    # fixed：固定选择，以下是固定选择第一个节点
+    policy: fixed(0)
+
+    # min：最小延迟节点
+    #policy: min
+
+    # 每个连接选择平均延迟最小的节点
+    #policy: min_moving_avg
+  }
+
+  gfw_proxy {
+    policy: fixed(0)
+  }
+
+  warp_proxy {
+    policy: fixed(1)
+  }
+}

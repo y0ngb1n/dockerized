@@ -1,0 +1,31 @@
+# 更多的 Routing 样例见 https://github.com/daeuniverse/dae/blob/main/docs/en/configuration/routing.md
+routing {
+  pname(dae, NetworkManager, systemd-resolved, dnsmasq) -> must_direct
+  dip(224.0.0.0/3, 'ff00::/8') -> direct
+
+  # 禁用 h3，因为它通常消耗很多 CPU 和内存资源
+  l4proto(udp) && dport(443) -> block
+
+  # DNS地址，要不要走proxy你自己决定
+  dip(8.8.8.8, 8.8.4.4) -> gfw_proxy
+  dip(223.5.5.5, 223.6.6.6) -> direct
+
+  ### Ad Block
+  domain(geosite:category-ads, geosite:category-ads-all) -> block
+
+  ### OpenAI
+  domain(geosite:openai) -> warp_proxy
+  domain(suffix: openai.com) -> warp_proxy
+
+  ### Telegram
+  #dip(geoip:telegram) -> warp_proxy
+
+  ### Apple
+  domain(geosite:apple) -> direct
+
+  ### China
+  dip(geoip:private, geoip:cn) -> direct
+  domain(geosite:cn) -> direct
+
+  fallback: gfw_proxy
+}

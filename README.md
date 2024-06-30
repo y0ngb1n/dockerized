@@ -29,6 +29,7 @@
 - [Bitwarden](https://github.com/y0ngb1n/dockerized/tree/master/bitwarden) - 私人密码管理器 🐳
 - [Blocky](https://github.com/y0ngb1n/dockerized/tree/master/blocky) - 一个轻量级的 DNS 代理工具，支持 DoT/DoH 加密以及广告过滤 🐳
 - [Cloudflare Tunnel](https://github.com/y0ngb1n/dockerized/tree/master/cloudflare-tunnel) - Cloudflare 出品的一款轻量级代理工具 ☸️
+- [dae](https://github.com/y0ngb1n/dockerized/tree/master/dae) - 一款基于 eBPF 技术的 Linux 高性能透明代理工具 🐳
 - [Tailscale VPN](https://github.com/y0ngb1n/dockerized/tree/master/tailscale) - 搭建属于自己的虚拟局域网 🐳 ☸️
 - [SonarQube](https://github.com/y0ngb1n/dockerized/tree/master/sonarqube) - 代码质量检测平台 🐳
 - [ZeroTier](https://github.com/y0ngb1n/dockerized/tree/master/zerotier) - 搭建属于自己的虚拟局域网 🐳

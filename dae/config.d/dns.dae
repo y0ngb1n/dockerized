@@ -1,0 +1,26 @@
+# 更多的 DNS 样例见 https://github.com/daeuniverse/dae/blob/main/docs/en/configuration/dns.md
+dns {
+  ipversion_prefer: 4
+
+  upstream {
+    googledns: 'tcp://dns.google.com:53'
+    alidns: 'udp://dns.alidns.com:53'
+    adguardhome: 'udp://192.168.123.253:53'
+  }
+  routing {
+    request {
+      # 阻断广告的 DNS 解析
+      qname(geosite:category-ads) -> reject
+      qname(geosite:category-ads-all) -> reject
+      # 阻断查询 IPv6
+      qtype(aaaa) -> reject
+      qname(geosite:cn) -> alidns
+      fallback: googledns
+    }
+    response {
+      upstream(googledns) -> accept
+      ip(geoip:private) && !qname(geosite:cn) -> googledns
+      fallback: accept
+    }
+  }
+}
