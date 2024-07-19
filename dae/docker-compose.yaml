@@ -14,7 +14,7 @@ services:
         reservations:
           cpus: "0.25"
           memory: 128M
-    image: daeuniverse/dae:20240618
+    image: ghcr.io/y0ngb1n/dockerized/dae:
     container_name: dae
     environment:
       - TZ=Asia/Shanghai
