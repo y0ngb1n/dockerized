@@ -31,8 +31,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-         persist-credentials: false
-         fetch-depth: 0
+          persist-credentials: false
+          fetch-depth: 0
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -91,9 +91,10 @@ jobs:
           
           rand=$[$RANDOM % ${#arr[@]}]
           
-          git commit -m "${arr[$rand]}" "chore(bot): ${arr[$rand]} update dae version to ${{ steps.get_dae_version.outputs.dae_version }}"
+          git commit -m "chore(bot): ${arr[$rand]} update dae version to ${{ steps.get_dae_version.outputs.dae_version }}"
       - name: Push changes
         uses: ad-m/github-push-action@master
+        # uses: actions-js/push@master
         if: steps.get_dae_version.outputs.dae_version != ''
         with:
           directory: "dae"
