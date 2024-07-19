@@ -11,6 +11,8 @@ on:
     paths:
       - "dae/docker"
       - ".github/workflows/dae-docker-build.yml"
+  schedule:
+    - cron: '0 3 * * *' # See https://crontab.guru/#0_3_*_*_*
 
 env:
   REGISTRY: ghcr.io
@@ -19,6 +21,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.repository == 'y0ngb1n/dockerized'
     permissions:
       contents: read
       packages: write
@@ -27,6 +30,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+         persist-credentials: false
+         fetch-depth: 0
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -37,16 +43,58 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Fetch dae version
+        id: get_dae_version
+        run: |
+          export TZ='Asia/Shanghai'
+          echo "build_date=$(date '+%Y-%m-%d-%H-%M-%S')" >> $GITHUB_OUTPUT
+          local_version=`sed -nr 's/ARG DAE_VERSION="(.*)"/\1/p' dae/docker/Dockerfile`
+          latest_version=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/daeuniverse/dae/releases/latest | jq -r '.tag_name')
+          if [ "$local_version" != "$latest_version" ]; then
+            sed -i 's/DAE_VERSION="[^"]*"/DAE_VERSION="'"$latest_version"'"/g' dae/docker/Dockerfile
+            echo "dae_version=$latest_version" >> $GITHUB_OUTPUT
+          fi
       - name: Build and push Docker images to ghcr.io
         uses: docker/build-push-action@v4
+        if: steps.get_dae_version.outputs.dae_version != ''
         with:
           context: dae
           file: ./dae/docker/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           platforms: linux/arm/v7,linux/arm64,linux/amd64,linux/386
+          build-args: |
+            DAE_VERSION=${{ steps.get_dae_version.outputs.dae_version }}
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/dae:v0.6.0
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/dae:${{ steps.get_dae_version.outputs.dae_version }}
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/dae:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Commit changes
+        if: steps.get_dae_version.outputs.dae_version != ''
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          
+          arr[0]="😂"
+          arr[1]="😱"
+          arr[2]="👿"
+          arr[3]="💩"
+          arr[4]="🙏"
+          arr[5]="🙈"
+          arr[6]="🐐"
+          arr[7]="🤖"
+          arr[8]="🪿"
+          arr[9]="👻"
+          
+          rand=$[$RANDOM % ${#arr[@]}]
+          
+          git commit -m "${arr[$rand]}" "chore(bot): ${arr[$rand]} update dae version to ${{ steps.get_dae_version.outputs.dae_version }}"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        if: steps.get_dae_version.outputs.dae_version != ''
+        with:
+          directory: "dae"
+          github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -7,9 +7,12 @@ WORKDIR /build/
 
 RUN apt-get update \
  && apt-get install -y llvm-15 clang-15 git make
-ENV CLANG=clang-15
 
-RUN git clone -b 'v0.6.0' --single-branch --depth 1 --recurse-submodules https://github.com/daeuniverse/dae.git . \
+ENV CLANG=clang-15
+ARG DAE_VERSION="v0.6.0"
+ENV DAE_VERSION=$DAE_VERSION
+
+RUN git clone -b "$DAE_VERSION" --single-branch --depth 1 --recurse-submodules https://github.com/daeuniverse/dae.git . \
  && go mod download \
  && make OUTPUT=dae GOFLAGS="-buildvcs=false" CC=clang CGO_ENABLED=0
 
