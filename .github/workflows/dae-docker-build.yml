@@ -47,7 +47,6 @@ jobs:
           latest_version=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             https://api.github.com/repos/daeuniverse/dae/releases/latest | jq -r '.tag_name')
           if [ "$local_version" != "$latest_version" ]; then
-            sed -i 's/DAE_VERSION="[^"]*"/DAE_VERSION="'"$latest_version"'"/g' dae/docker/Dockerfile
             echo "dae_version=$latest_version" >> $GITHUB_OUTPUT
           fi
       - name: Build and push Docker images to ghcr.io
@@ -66,6 +65,11 @@ jobs:
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/dae:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
+      - name: Update dae version
+        if: steps.get_dae_version.outputs.dae_version != ''
+        run: |
+          sed -i 's/DAE_VERSION="[^"]*"/DAE_VERSION="'"$latest_version"'"/g' dae/docker/Dockerfile
+          sed -i "s|image: .*|image: ghcr.io/y0ngb1n/dockerized/dae:$latest_version|g" dae/docker-compose.yaml
       - name: Commit changes
         if: steps.get_dae_version.outputs.dae_version != ''
         run: |
