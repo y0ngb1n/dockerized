@@ -22,11 +22,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     if: github.repository == 'y0ngb1n/dockerized'
-    permissions:
-      contents: read
-      packages: write
-      attestations: write
-      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
