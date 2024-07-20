@@ -12,7 +12,7 @@ on:
       - 'dae/docker/**'
       - '.github/workflows/dae-docker-build.yml'
   schedule:
-    - cron: '0 3 * * *' # See https://crontab.guru/#0_3_*_*_*
+    - cron: '30 22 * * *' # See https://crontab.guru/#0_3_*_*_*
 
 env:
   REGISTRY: ghcr.io
@@ -48,6 +48,7 @@ jobs:
             https://api.github.com/repos/daeuniverse/dae/releases/latest | jq -r '.tag_name')
           if [ "$local_version" != "$latest_version" ]; then
             echo "dae_version=$latest_version" >> $GITHUB_OUTPUT
+            echo "dae_latest_version=$latest_version" >> $GITHUB_ENV
           fi
       - name: Build and push Docker images to ghcr.io
         uses: docker/build-push-action@v4
@@ -68,8 +69,8 @@ jobs:
       - name: Update dae version
         if: steps.get_dae_version.outputs.dae_version != ''
         run: |
-          sed -i 's/DAE_VERSION="[^"]*"/DAE_VERSION="'"$latest_version"'"/g' dae/docker/Dockerfile
-          sed -i "s|image: .*|image: ghcr.io/y0ngb1n/dockerized/dae:$latest_version|g" dae/docker-compose.yaml
+          sed -i 's/DAE_VERSION="[^"]*"/DAE_VERSION="'"$dae_latest_version"'"/g' dae/docker/Dockerfile
+          sed -i "s|image: .*|image: ghcr.io/y0ngb1n/dockerized/dae:$dae_latest_version|g" dae/docker-compose.yaml
       - name: Commit changes
         if: steps.get_dae_version.outputs.dae_version != ''
         run: |
