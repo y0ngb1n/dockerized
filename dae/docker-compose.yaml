@@ -28,6 +28,22 @@ services:
     # mac_address: 61:c7:83:33:77:55
     tty: true
     privileged: true
+    entrypoint:
+      - /bin/sh
+      - -ec
+      - |
+        command -v nft >/dev/null || \
+          (sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories && apk add nftables >/dev/null)
+
+        # 开启 IP 动态伪装，解决旁路网关导致的非对称路由问题，转换为对称路由
+        # https://docs.redhat.com/zh_hans/documentation/red_hat_enterprise_linux/8/html/securing_networks/configuring-nat-using-nftables_getting-started-with-nftables
+        nft add table nat
+        nft add chain nat postrouting { type nat hook postrouting priority 100 \; }
+        nft add rule nat postrouting oifname "eth0" masquerade
+
+        # dae --version
+        dae run -c /etc/dae/config.dae
+
 networks:
   macnet:
     external: true
