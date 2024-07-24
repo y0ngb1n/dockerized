@@ -3,7 +3,7 @@
 
 name: "Build dae Docker image"
 
-on: 
+on:
   workflow_dispatch:
   push:
     branches:
@@ -12,11 +12,12 @@ on:
       - 'dae/docker/**'
       - '.github/workflows/dae-docker-build.yml'
   schedule:
-    - cron: '30 22 * * *' # See https://crontab.guru/#0_3_*_*_*
+    - cron: '30 22 * * 6' # See https://crontab.guru/#0_3_*_*_*
 
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  REPOSITORY_NAME: ${{ github.repository }}
+  GHCR_IMAGE_NAME: ghcr.io/y0ngb1n/dockerized/dae
+  DOCKERHUB_IMAGE_NAME: y0ngb1n/dae
 
 jobs:
   build:
@@ -38,6 +39,11 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Fetch dae version
         id: get_dae_version
         run: |
@@ -50,8 +56,8 @@ jobs:
             echo "dae_version=$latest_version" >> $GITHUB_OUTPUT
             echo "dae_latest_version=$latest_version" >> $GITHUB_ENV
           fi
-      - name: Build and push Docker images to ghcr.io
-        uses: docker/build-push-action@v4
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v6
         if: steps.get_dae_version.outputs.dae_version != ''
         with:
           context: dae
@@ -62,22 +68,24 @@ jobs:
             DAE_VERSION=${{ steps.get_dae_version.outputs.dae_version }}
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/dae:${{ steps.get_dae_version.outputs.dae_version }}
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/dae:latest
+            ${{ env.GHCR_IMAGE_NAME }}:${{ steps.get_dae_version.outputs.dae_version }}
+            ${{ env.GHCR_IMAGE_NAME }}:latest
+            ${{ env.DOCKERHUB_IMAGE_NAME }}:${{ steps.get_dae_version.outputs.dae_version }}
+            ${{ env.DOCKERHUB_IMAGE_NAME }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Update dae version
         if: steps.get_dae_version.outputs.dae_version != ''
         run: |
           sed -i 's/DAE_VERSION="[^"]*"/DAE_VERSION="'"$dae_latest_version"'"/g' dae/docker/Dockerfile
-          sed -i "s|image: .*|image: ghcr.io/y0ngb1n/dockerized/dae:$dae_latest_version|g" dae/docker-compose.yaml
+          sed -i "s|image: .*|image: $GHCR_IMAGE_NAME:$dae_latest_version|g" dae/docker-compose.yaml
       - name: Commit changes
         if: steps.get_dae_version.outputs.dae_version != ''
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add -A
-          
+
           arr[0]="😂"
           arr[1]="😱"
           arr[2]="👿"
@@ -88,9 +96,9 @@ jobs:
           arr[7]="🤖"
           arr[8]="🪿"
           arr[9]="👻"
-          
+
           rand=$[$RANDOM % ${#arr[@]}]
-          
+
           git commit -m "chore(bot): ${arr[$rand]} update dae version to ${{ steps.get_dae_version.outputs.dae_version }}"
       - name: Push changes
         uses: ad-m/github-push-action@master
