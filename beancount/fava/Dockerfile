@@ -3,7 +3,7 @@
 
 FROM bitnami/python:3.12-debian-12
 
-ARG FAVA_PIP_VERSION="1.27.3"
+ARG FAVA_PIP_VERSION="1.28"
 ENV FAVA_PIP_VERSION=$FAVA_PIP_VERSION \
     FAVA_HOST="0.0.0.0" \
     BEANCOUNT_FILE="/ledger/main.beancount"
