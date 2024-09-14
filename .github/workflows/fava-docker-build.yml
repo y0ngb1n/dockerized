@@ -46,7 +46,7 @@ jobs:
         run: |
           export TZ='Asia/Shanghai'
           echo "build_date=$(date '+%Y-%m-%d-%H-%M-%S')" >> $GITHUB_OUTPUT
-          local_version=v`sed -nr 's/ARG FAVA_VERSION="(.*)"/\1/p' beancount/fava/Dockerfile`
+          local_version=v`sed -nr 's/ARG FAVA_PIP_VERSION="(.*)"/\1/p' beancount/fava/Dockerfile`
           latest_version=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             https://api.github.com/repos/beancount/fava/tags | jq -r '.[0].name')
           if [ "$local_version" != "$latest_version" ]; then
