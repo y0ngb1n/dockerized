@@ -62,6 +62,7 @@ chmod +x /usr/local/bin/docker-compose
 
 - [Play with Docker](https://labs.play-with-docker.com/)
 - [Play with Kubernetes](https://labs.play-with-k8s.com/)
+- [Play with iximiuz Labs](https://labs.iximiuz.com/playgrounds)
 
 ### 实用工具
 
