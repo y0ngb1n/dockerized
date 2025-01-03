@@ -1,4 +1,4 @@
 # https://github.com/dallaslu/beancount-periodic
-beancount-periodic==0.1.2
+beancount-periodic==0.1.3
 # https://github.com/andreasgerstmayr/fava-dashboards
 # https://github.com/polarmutex/fava-envelope
