@@ -13,7 +13,7 @@ on:
 
 env:
   REPOSITORY_NAME: ${{ github.repository }}
-  GHCR_IMAGE_NAME: ghcr.io/y0ngb1n/dockerized/fava
+  GHCR_IMAGE_NAME: ghcr.io/y0ngb1n/fava
   DOCKERHUB_IMAGE_NAME: y0ngb1n/fava
 
 jobs:
@@ -54,6 +54,10 @@ jobs:
             echo "fava_latest_version=$latest_version" >> $GITHUB_ENV
             echo "fava_pip_version=$(echo $latest_version | sed 's/v//g')" >> $GITHUB_ENV
           fi
+      - name: Update fava version
+        if: steps.get_fava_version.outputs.fava_version != ''
+        run: |
+          sed -i 's/fava==.*/fava=='"$fava_pip_version"'/g' beancount/fava/requirements.txt
       - name: Build and push Docker images
         uses: docker/build-push-action@v6
         if: steps.get_fava_version.outputs.fava_version != ''
@@ -62,8 +66,6 @@ jobs:
           file: ./beancount/fava/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           platforms: linux/arm64,linux/amd64
-          build-args: |
-            FAVA_PIP_VERSION=${{ env.fava_pip_version }}
           push: true
           tags: |
             ${{ env.GHCR_IMAGE_NAME }}:${{ steps.get_fava_version.outputs.fava_version }}
@@ -72,10 +74,6 @@ jobs:
             ${{ env.DOCKERHUB_IMAGE_NAME }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      - name: Update fava version
-        if: steps.get_fava_version.outputs.fava_version != ''
-        run: |
-          sed -i 's/FAVA_PIP_VERSION="[^"]*"/FAVA_PIP_VERSION="'"$fava_pip_version"'"/g' beancount/fava/Dockerfile
       - name: Commit changes
         if: steps.get_fava_version.outputs.fava_version != ''
         run: |

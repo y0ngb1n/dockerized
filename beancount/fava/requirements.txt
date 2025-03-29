@@ -1,4 +1,5 @@
-# https://github.com/dallaslu/beancount-periodic
+fava==1.30.2
 beancount-periodic==0.2
-# https://github.com/andreasgerstmayr/fava-dashboards
-# https://github.com/polarmutex/fava-envelope
+fava-dashboards @ git+https://github.com/andreasgerstmayr/fava-dashboards.git@6994c45bae2eaefedce3167edd8a57b7b3fd36b9
+fava-portfolio-returns @ git+https://github.com/andreasgerstmayr/fava-portfolio-returns.git@2dd5667354f4a60d77d660d48a5c090321d16669
+fava_investor==1.0.1
