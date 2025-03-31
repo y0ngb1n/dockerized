@@ -16,7 +16,7 @@ on:
 
 env:
   REPOSITORY_NAME: ${{ github.repository }}
-  GHCR_IMAGE_NAME: ghcr.io/y0ngb1n/dockerized/dae
+  GHCR_IMAGE_NAME: ghcr.io/y0ngb1n/dae
   DOCKERHUB_IMAGE_NAME: y0ngb1n/dae
 
 jobs:
