@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: beancount
+  namespace: beancount
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: beancount
+  template:
+    metadata:
+      labels:
+        app: beancount
+    spec:
+      containers:
+        - image: y0ngb1n/fava:latest
+          name: fava
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: BEANCOUNT_FILE
+              value: "/var/ledger/main.beancount"
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - mountPath: /var/ledger
+              name: data-vol
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+        - image: linuxserver/code-server:4.98.2
+          name: code-server
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Asia/Shanghai"
+            - name: PASSWORD
+              value: "Ch@ngeM3!"
+            - name: DEFAULT_WORKSPACE
+              value: "/var/ledger"
+          ports:
+            - containerPort: 8443
+          volumeMounts:
+            - mountPath: /var/ledger
+              name: data-vol
+      volumes:
+        - name: data-vol
+          hostPath:
+            path: /var/beancount
