@@ -1,4 +1,4 @@
-fava==1.30.4
+fava==1.30.5
 beancount-periodic==0.2
 fava-dashboards @ git+https://github.com/andreasgerstmayr/fava-dashboards.git@6994c45bae2eaefedce3167edd8a57b7b3fd36b9
 fava-portfolio-returns @ git+https://github.com/andreasgerstmayr/fava-portfolio-returns.git@2dd5667354f4a60d77d660d48a5c090321d16669
