@@ -14,7 +14,7 @@ updates:
       - dependencies
 
   - package-ecosystem: "pip"
-    directory: "/"
+    directory: "beancount/fava"
     schedule:
       interval: "daily"
       time: '08:00'
