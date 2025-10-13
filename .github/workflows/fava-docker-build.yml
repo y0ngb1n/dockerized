@@ -53,6 +53,9 @@ jobs:
             echo "fava_version=$latest_version" >> $GITHUB_OUTPUT
             echo "fava_latest_version=$latest_version" >> $GITHUB_ENV
             echo "fava_pip_version=$(echo $latest_version | sed 's/v//g')" >> $GITHUB_ENV
+          else
+            echo "fava_latest_version=$local_version" >> $GITHUB_OUTPUT
+            echo "fava_pip_version=$local_version" >> $GITHUB_ENV
           fi
       - name: Update fava version
         if: steps.get_fava_version.outputs.fava_version != ''
@@ -60,7 +63,10 @@ jobs:
           sed -i 's/fava==.*/fava=='"$fava_pip_version"'/g' beancount/fava/requirements.txt
       - name: Build and push Docker images
         uses: docker/build-push-action@v6
-        if: steps.get_fava_version.outputs.fava_version != ''
+        if: |
+          steps.get_fava_version.outputs.fava_version != '' ||
+          github.event_name == 'workflow_dispatch' ||
+          github.actor == 'dependabot[bot]'
         with:
           context: beancount/fava
           file: ./beancount/fava/Dockerfile
@@ -68,9 +74,9 @@ jobs:
           platforms: linux/arm64,linux/amd64
           push: true
           tags: |
-            ${{ env.GHCR_IMAGE_NAME }}:${{ steps.get_fava_version.outputs.fava_version }}
+            ${{ env.GHCR_IMAGE_NAME }}:${{ steps.get_fava_version.outputs.fava_latest_version }}
             ${{ env.GHCR_IMAGE_NAME }}:latest
-            ${{ env.DOCKERHUB_IMAGE_NAME }}:${{ steps.get_fava_version.outputs.fava_version }}
+            ${{ env.DOCKERHUB_IMAGE_NAME }}:${{ steps.get_fava_version.outputs.fava_latest_version }}
             ${{ env.DOCKERHUB_IMAGE_NAME }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
