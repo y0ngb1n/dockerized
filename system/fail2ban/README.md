@@ -14,6 +14,24 @@ helm upgrade --install fail2ban . --dependency-update \
 helm uninstall fail2ban -n app
 ```
 
+```bash
+kubectl exec -n app -it ds/fail2ban -- ls -R /config
+
+# 查看日志
+kubectl -n app logs -f daemonset/fail2ban
+kubectl -n app exec -it ds/fail2ban -- tail -n 50 /config/log/fail2ban/fail2ban.log
+
+# 检查 Fail2ban 是否正常封 IP
+kubectl exec -n app -it ds/fail2ban -- fail2ban-client status
+kubectl exec -n app -it ds/fail2ban -- fail2ban-client status sshd
+kubectl exec -n app -it ds/fail2ban -- fail2ban-client status --all
+kubectl exec -n app -it ds/fail2ban -- fail2ban-client set sshd banip 1.2.3.4
+
+# 调试 iptables
+kubectl exec -n app -it ds/fail2ban -- iptables -L INPUT -n -v
+kubectl exec -n app -it ds/fail2ban -- iptables -L f2b-sshd -n -v
+```
+
 ## ⚙️ 参考配置
 
 - https://github.com/linuxserver/fail2ban-confs
