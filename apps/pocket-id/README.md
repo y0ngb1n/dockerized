@@ -16,5 +16,5 @@ helm uninstall pocket-id -n app
 
 ## 🔗️ 参考链接
 
-- [Pocket ID Getting Started]](https://pocket-id.org/docs)
+- [Pocket ID Getting Started](https://pocket-id.org/docs)
 - [自托管部署 Pocket ID 与 Tinyauth 完全指南](https://blog.dejavu.moe/posts/build-passkeys-identity-system-with-pocketid-x-tinyauth/)
