@@ -1,0 +1,13 @@
+1. Ingress Example with ingress-nginx Controller
+
+docs: https://tinyauth.app/docs/community/kubernetes#ingress-example-with-ingress-nginx-controller
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: my-ingress
+  namespace: my-namespace
+  annotations:
+    nginx.ingress.kubernetes.io/auth-url: "http://<my-service>.<my-namespace>.svc.cluster.local:3000/api/auth/nginx"
+    nginx.ingress.kubernetes.io/auth-signin: "http://auth.example.com/login"
+    nginx.ingress.kubernetes.io/auth-signin-redirect-param: redirect_uri

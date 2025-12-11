@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.5.0/charts/other/app-template/values.schema.json
+
+app-template:
+  controllers:
+    main:
+      strategy: Recreate
+
+      containers:
+        main:
+          image:
+            repository: ghcr.io/pocket-id/pocket-id
+            tag: v1.16.0
+            pullPolicy: IfNotPresent
+
+          env:
+            APP_URL: https://pocket-id.example.com
+
+  service:
+    main:
+      controller: main
+      type: ClusterIP
+      ports:
+        http:
+          port: 1411
+
+  ingress:
+    main:
+      className: nginx
+      annotations:
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      hosts:
+        - host: &host pocket-id.example.com
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                identifier: main
+                port: http
+      tls:
+        - hosts:
+            - *host
+          secretName: tls-example.com
