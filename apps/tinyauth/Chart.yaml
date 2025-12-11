@@ -1,0 +1,7 @@
+apiVersion: v2
+name: tinyauth
+version: 0.0.0
+dependencies:
+- name: tinyauth
+  version: 1.0.0
+  repository: https://helm.tinyauth.app

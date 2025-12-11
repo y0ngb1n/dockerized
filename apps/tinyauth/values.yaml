@@ -1,0 +1,62 @@
+tinyauth:
+
+  image:
+    repository: ghcr.io/steveiliop56/tinyauth
+    pullPolicy: IfNotPresent
+    tag: "v4-distroless"
+
+  service:
+    type: ClusterIP
+    port: 3000
+
+  # Tinyauth Configuration: https://tinyauth.app/docs/reference/configuration
+  tinyauth:
+    general:
+      appTitle: "Aben's Lab"
+      appUrl: "https://tinyauth.example.com"
+      disableAnalytics: true
+      logLevel: "error"
+      loginMaxRetries: 3
+      loginTimeout: 900
+      oauthAutoRedirect: "none"
+      oauthWhitelist: "foo@example.com"
+      secureCookie: true
+      sessionExpiry: 10800
+      ##
+      # kubectl run tmp-shell --rm -i --tty --image=ghcr.io/steveiliop56/tinyauth:v4 --command -- sh
+      # tinyauth user create --username 'user' --password 'password'
+      # tinyauth totp generate --user 'user:$$2a$$10$$UdLYoJ5lgPsC0RKqYH/jMua7zIn0g9kPqWmhYayJYLaZQ/FTmH2/u'
+      ##
+      users: "user:$$2a$$10$$UdLYoJ5lgPsC0RKqYH/jMua7zIn0g9kPqWmhYayJYLaZQ/FTmH2/u"
+
+    providers:
+      # https://tinyauth.app/docs/guides/github-oauth
+      - id: "github"
+        clientId: "<CHANGE_GITHUB_OAUTH_CLIENT_ID>"
+        clientSecret: "<CHANGE_GITHUB_OAUTH_CLIENT_SECRET>"
+        clientSecretSecretRef:
+          name: ""
+          key: ""
+        authUrl: "https://github.com/login/oauth/authorize"
+        tokenUrl: "https://github.com/login/oauth/access_token"
+        userInfoUrl: "https://api.github.com/user"
+        scopes: "user:email"
+        name: "GitHub"
+        insecureSkipVerify: false
+
+  ingress:
+    enabled: true
+    className: "nginx"
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    hosts:
+    - host: tinyauth.example.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+    tls:
+    - secretName: tls-example.com
+      hosts:
+      - tinyauth.example.com
