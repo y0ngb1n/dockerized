@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Release.Name }}-config"
+  namespace: {{ .Release.Namespace }}
+data:
+  jail.local: |
+    # https://github.com/linuxserver/fail2ban-confs/blob/master/jail.conf
+    [DEFAULT]
+    # 配置忽略检测的 IP (段)，添加多个需要用空格隔开
+    ignoreip = 127.0.0.1/8
+    # 配置计算封禁 IP 的具体滑动窗口大小
+    findtime  = 10m
+    # 配置在 findtime 时间内发生多少次失败登录然后将 IP 封禁
+    maxretry  = 3
+    # 配置 IP 封禁的持续时间（years/months/weeks/days/hours/minutes/seconds）
+    bantime  = 1h
+    # 是否开启增量禁止，可选
+    bantime.increment = true
+    # 如果上面为false则不生效，增量禁止的指数因子，这里设置为168的意思就是每次增加 168*(2^ban次数) (封禁时长类似这样 - 1小时 -> 7天 -> 14天 ...):
+    bantime.factor = 168
+    # 最大封禁时间，8w 表示8周，可选
+    bantime.maxtime = 8w
+    # 配置封禁 IP 的手段（位于 /etc/fail2ban/action.d 目录中），可通过 iptables、firewalld 或者 TCP Wrapper 等
+    banaction = iptables-multiport
+    banaction_allports = iptables-allports
+    backend   = auto
+
+  jail.d-sshd.conf: |
+    # https://github.com/linuxserver/fail2ban-confs/blob/master/jail.d/sshd.conf
+    [sshd]
+    enabled = true
+    port = ssh
+    # backend = systemd
+    # logpath = systemd
+    backend = polling
+    logpath = /var/log/sshd.log
+    filter = sshd
+    action = %(action_)s
+             telegram[TELEGRAM_BOT_TOKEN='<CHANGE_YOUR_BOT_TOKEN>', TELEGRAM_CHAT_ID='<CHANGE_YOUR_CHAT_ID>']
+
+  action.d-telegram.conf: |
+    [Init]
+    init = "Fail2ban Telegram notifications enabled."
+
+    [Definition]
+    actionstart =
+    actionstop =
+    actioncheck =
+
+    # Fail2ban 测试 IP 是否被检测到
+    # fail2ban-client status sshd
+    # fail2ban-client set sshd banip 1.2.3.4
+
+    actionban = curl -s -X POST https://api.telegram.org/bot<TELEGRAM_BOT_TOKEN>/sendMessage \
+      -d chat_id=<TELEGRAM_CHAT_ID> \
+      -d parse_mode=MarkdownV2 \
+      -d text="""⛔ *<name>* ⛔
+
+              *IP:* \`<ip>\`
+              *Ban Time:* <bantime> seconds
+              *Failures:* <failures>
+
+              *Unban Command:*
+              \`fail2ban-client set <name> unbanip <ip>\`
+              """
+
+    actionunban = curl -s -X POST https://api.telegram.org/bot<TELEGRAM_BOT_TOKEN>/sendMessage \
+      -d chat_id=<TELEGRAM_CHAT_ID> \
+      -d parse_mode=MarkdownV2 \
+      -d text="""♻️ *<name>* ♻️
+
+              \`<ip>\` is now unbanned
+              """

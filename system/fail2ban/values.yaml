@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.5.0/charts/other/app-template/values.schema.json
+app-template:
+  defaultPodOptions:
+    automountServiceAccountToken: false
+    hostNetwork: true # 这是至关重要的。它将容器直接置于宿主机的网络命名空间中，使其能够看到宿主机的网络接口，并且 Fail2Ban 能够直接操作宿主机的 iptables。
+  controllers:
+    fail2ban:
+      type: daemonset
+      containers:
+        main:
+          image:
+            repository: ghcr.io/linuxserver/fail2ban
+            tag: "1.1.0"
+            pullPolicy: IfNotPresent
+          securityContext:
+            privileged: true # 这是为了让容器能够修改宿主机的 iptables。NET_ADMIN 和 NET_RAW 能力是 iptables 操作所必需的。privileged: true 会授予所有能力，但明确列出它们是好习惯。
+            capabilities:
+              add:
+                - NET_ADMIN  # 允许 fail2ban 修改 iptables
+                - NET_RAW
+  persistence:
+    config:
+      enabled: true
+      type: configMap
+      name: "{{ .Release.Name }}-config"
+      globalMounts:
+        - path: /config/fail2ban/jail.local
+          subPath: jail.local
+        - path: /config/fail2ban/jail.d/sshd.conf
+          subPath: jail.d-sshd.conf
+        - path: /config/fail2ban/action.d/telegram.conf
+          subPath: action.d-telegram.conf
+    hosted-var-log:
+      enabled: true
+      type: hostPath
+      hostPath: /var/log
+      hostPathType: Directory
+      globalMounts:
+        - path: /var/log
+          readOnly: true
