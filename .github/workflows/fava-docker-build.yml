@@ -18,15 +18,6 @@ env:
 
 jobs:
   build:
-    if: |
-      !contains(
-        join(github.event.commits.*.message, ' '),
-        'ci skip'
-      ) &&
-      !contains(
-        join(github.event.commits.*.message, ' '),
-        'skip ci'
-      )
     runs-on: ubuntu-latest
     if: github.repository == 'y0ngb1n/dockerized'
     steps:
