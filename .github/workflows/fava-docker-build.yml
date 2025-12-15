@@ -6,7 +6,7 @@ on:
     branches:
       - master
     paths:
-      - 'beancount/fava/**'
+      - 'docker/apps/beancount/fava/**'
       - '.github/workflows/fava-docker-build.yml'
   schedule:
     - cron: '30 22 * * 5' # See https://crontab.guru/#0_3_*_*_*
@@ -18,6 +18,15 @@ env:
 
 jobs:
   build:
+    if: |
+      !contains(
+        join(github.event.commits.*.message, ' '),
+        'ci skip'
+      ) &&
+      !contains(
+        join(github.event.commits.*.message, ' '),
+        'skip ci'
+      )
     runs-on: ubuntu-latest
     if: github.repository == 'y0ngb1n/dockerized'
     steps:
@@ -46,7 +55,7 @@ jobs:
         run: |
           export TZ='Asia/Shanghai'
           echo "build_date=$(date '+%Y-%m-%d-%H-%M-%S')" >> $GITHUB_OUTPUT
-          local_version=v`sed -nr 's/fava==(.*)/\1/p' beancount/fava/requirements.txt`
+          local_version=v`sed -nr 's/fava==(.*)/\1/p' docker/apps/beancount/fava/requirements.txt`
           latest_version=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             https://api.github.com/repos/beancount/fava/tags | jq -r '.[0].name')
           if [ "$local_version" != "$latest_version" ]; then
@@ -60,7 +69,7 @@ jobs:
       - name: Update fava version
         if: steps.get_fava_version.outputs.fava_version != ''
         run: |
-          sed -i 's/fava==.*/fava=='"$fava_pip_version"'/g' beancount/fava/requirements.txt
+          sed -i 's/fava==.*/fava=='"$fava_pip_version"'/g' docker/apps/beancount/fava/requirements.txt
       - name: Build and push Docker images
         uses: docker/build-push-action@v6
         if: |
@@ -68,8 +77,8 @@ jobs:
           github.event_name == 'workflow_dispatch' ||
           github.actor == 'dependabot[bot]'
         with:
-          context: beancount/fava
-          file: ./beancount/fava/Dockerfile
+          context: docker/apps/beancount/fava
+          file: ./docker/apps/beancount/fava/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           platforms: linux/arm64,linux/amd64
           push: true
@@ -106,5 +115,5 @@ jobs:
         # uses: actions-js/push@master
         if: steps.get_fava_version.outputs.fava_version != ''
         with:
-          directory: "beancount/fava"
+          directory: "docker/apps/beancount/fava"
           github_token: ${{ secrets.GITHUB_TOKEN }}

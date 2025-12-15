@@ -9,7 +9,7 @@ on:
     branches:
       - master
     paths:
-      - 'dae/docker/**'
+      - 'docker/apps/dae/docker/**'
       - '.github/workflows/dae-docker-build.yml'
   schedule:
     - cron: '30 22 * * 6' # See https://crontab.guru/#0_3_*_*_*
@@ -21,6 +21,15 @@ env:
 
 jobs:
   build:
+    if: |
+      !contains(
+        join(github.event.commits.*.message, ' '),
+        'ci skip'
+      ) &&
+      !contains(
+        join(github.event.commits.*.message, ' '),
+        'skip ci'
+      )
     runs-on: ubuntu-latest
     if: github.repository == 'y0ngb1n/dockerized'
     steps:
@@ -49,7 +58,7 @@ jobs:
         run: |
           export TZ='Asia/Shanghai'
           echo "build_date=$(date '+%Y-%m-%d-%H-%M-%S')" >> $GITHUB_OUTPUT
-          local_version=`sed -nr 's/ARG DAE_VERSION="(.*)"/\1/p' dae/docker/Dockerfile`
+          local_version=`sed -nr 's/ARG DAE_VERSION="(.*)"/\1/p' docker/apps/dae/docker/Dockerfile`
           latest_version=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             https://api.github.com/repos/daeuniverse/dae/releases/latest | jq -r '.tag_name')
           if [ "$local_version" != "$latest_version" ]; then
@@ -61,7 +70,7 @@ jobs:
         if: steps.get_dae_version.outputs.dae_version != ''
         with:
           context: dae
-          file: ./dae/docker/Dockerfile
+          file: ./docker/apps/dae/docker/Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           platforms: linux/arm/v7,linux/arm64,linux/amd64,linux/386
           build-args: |
@@ -77,8 +86,8 @@ jobs:
       - name: Update dae version
         if: steps.get_dae_version.outputs.dae_version != ''
         run: |
-          sed -i 's/DAE_VERSION="[^"]*"/DAE_VERSION="'"$dae_latest_version"'"/g' dae/docker/Dockerfile
-          sed -i "s|image: .*|image: $GHCR_IMAGE_NAME:$dae_latest_version|g" dae/docker-compose.yaml
+          sed -i 's/DAE_VERSION="[^"]*"/DAE_VERSION="'"$dae_latest_version"'"/g' docker/apps/dae/docker/Dockerfile
+          sed -i "s|image: .*|image: $GHCR_IMAGE_NAME:$dae_latest_version|g" docker/apps/dae/docker-compose.yaml
       - name: Commit changes
         if: steps.get_dae_version.outputs.dae_version != ''
         run: |
