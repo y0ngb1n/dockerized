@@ -30,7 +30,7 @@
 - [Cloudflare Tunnel](https://github.com/y0ngb1n/dockerized/tree/master/cloudflare-tunnel) - Cloudflare 出品的一款轻量级代理工具 ☸️
 - [dae](https://github.com/y0ngb1n/dockerized/tree/master/dae) - 一款基于 eBPF 技术的 Linux 高性能透明代理工具 🐳
 - [Fail2ban](https://github.com/y0ngb1n/dockerized/tree/master/system/fail2ban) - 自动封禁暴力破解的安全防护工具 ☸️
-- [Pocket ID](https://github.com/y0ngb1n/dockerized/tree/master/apps/tinyauth) - 一个简单的 OIDC 提供程序，支持且仅允许用户使用 Passkeys 进行身份验证 ☸️
+- [Pocket ID](https://github.com/y0ngb1n/dockerized/tree/master/apps/pocket-id) - 一个简单的 OIDC 提供程序，支持且仅允许用户使用 Passkeys 进行身份验证 ☸️
 - [Tailscale VPN](https://github.com/y0ngb1n/dockerized/tree/master/tailscale) - 搭建属于自己的虚拟局域网 🐳 ☸️
 - [Tinyauth](https://github.com/y0ngb1n/dockerized/tree/master/apps/tinyauth) - 现代轻量的身份验证中间件 ☸️
 - [SonarQube](https://github.com/y0ngb1n/dockerized/tree/master/sonarqube) - 代码质量检测平台 🐳
