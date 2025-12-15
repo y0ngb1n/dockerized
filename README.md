@@ -22,6 +22,7 @@
 🐳 Docker / Compose \
 ☸️ Kubernetes
 
+- [acme.sh](https://github.com/y0ngb1n/dockerized/tree/master/kubernetes/system/acmesh) - 自动解析并申请证书，支持泛域名证书 ☸️
 - [AdGuard Home](https://github.com/y0ngb1n/dockerized/tree/master/adguard-home) - 过滤家中广告 🐳
 - [AList](https://github.com/y0ngb1n/dockerized/tree/master/alist) - 支持多存储的文件列表程序 ☸️
 - [Beancount](https://github.com/y0ngb1n/dockerized/tree/master/beancount) - 一个优秀的开源复式记账工具 ☸️

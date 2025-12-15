@@ -1,0 +1,87 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-4.5.0/charts/other/app-template/values.schema.json
+app-template:
+  controllers:
+    acmesh:
+      type: cronjob
+      cronjob:
+        concurrencyPolicy: Forbid
+        timeZone: Asia/Shanghai
+        schedule: "0 3 1 * *"
+        successfulJobsHistory: 1
+        failedJobsHistory: 1
+        backoffLimit: 0
+      serviceAccount:
+        name: acme-renew-sa
+      initContainers:
+        issue:
+          image:
+            repository: docker.io/neilpang/acme.sh
+            tag: 3.1.2
+            digest: "sha256:3c6b40e30e2c0c79863ba6ef5545d93350a040371213058099066ccd85b46aad"
+            pullPolicy: IfNotPresent
+          env:
+            DOMAIN: &domain example.com # !!! CHANGE YOUR DOMAIN !!!
+          command:
+          - sh
+          - -c
+          - |
+            echo "[ACME] Starting certificate issuance..."
+            acme.sh --issue \
+              --server letsencrypt \
+              --dns dns_cf \
+              --keylength ec-256 \
+              -d $DOMAIN -d "*.$DOMAIN"
+
+            echo "[ACME] Exporting certificate to shared directory..."
+            acme.sh --install-cert -d $DOMAIN \
+              --key-file       /certs/tls.key \
+              --fullchain-file /certs/tls.crt
+
+            chmod 755 /certs && chmod 644 /certs/*
+
+            echo "[ACME] Certificate issuance completed!"
+      containers:
+        deploy:
+          image:
+            repository: docker.io/bitnami/kubectl
+            tag: latest
+            pullPolicy: IfNotPresent
+          env:
+            DOMAIN: *domain
+            TLS_SECRET_NAME:
+              value: tls-$(DOMAIN)
+              dependsOn: DOMAIN
+            POD_NAMESPACE:
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          command:
+          - /bin/sh
+          - -c
+          - |
+            echo "[K8S] Waiting for certificate to be generated..."
+            while [ ! -f /certs/tls.crt ]; do
+              echo "[K8S] Waiting for acme.sh issue to complete..."
+              sleep 2
+            done
+
+            echo "[K8S] Certificate generated, updating Kubernetes secret..."
+            kubectl -n ${POD_NAMESPACE} create secret tls ${TLS_SECRET_NAME} \
+              --cert=/certs/tls.crt \
+              --key=/certs/tls.key \
+              --dry-run=client -o yaml | kubectl apply -f -
+
+            echo "[K8S] namespace: ${POD_NAMESPACE}, secret: ${SECRET_NAME} updated successfully!"
+  persistence:
+    certs:
+      type: emptyDir
+      globalMounts:
+        - path: /certs
+    acmesh-config:
+      type: secret
+      name: "acmesh-config"
+      advancedMounts:
+        acmesh:
+          issue:
+          - path: /acme.sh/account.conf
+            subPath: cloudflare-account.conf
