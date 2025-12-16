@@ -22,20 +22,22 @@
 🐳 Docker / Compose \
 ☸️ Kubernetes
 
-- [acme.sh](https://github.com/y0ngb1n/dockerized/tree/master/kubernetes/system/acmesh) - 自动解析并申请证书，支持泛域名证书 ☸️
-- [AdGuard Home](https://github.com/y0ngb1n/dockerized/tree/master/adguard-home) - 过滤家中广告 🐳
-- [AList](https://github.com/y0ngb1n/dockerized/tree/master/alist) - 支持多存储的文件列表程序 ☸️
-- [Beancount](https://github.com/y0ngb1n/dockerized/tree/master/beancount) - 一个优秀的开源复式记账工具 ☸️
-- [Bitwarden](https://github.com/y0ngb1n/dockerized/tree/master/bitwarden) - 私人密码管理器 🐳
-- [Blocky](https://github.com/y0ngb1n/dockerized/tree/master/blocky) - 一个轻量级的 DNS 代理工具，支持 DoT/DoH 加密以及广告过滤 🐳
-- [Cloudflare Tunnel](https://github.com/y0ngb1n/dockerized/tree/master/cloudflare-tunnel) - Cloudflare 出品的一款轻量级代理工具 ☸️
-- [dae](https://github.com/y0ngb1n/dockerized/tree/master/dae) - 一款基于 eBPF 技术的 Linux 高性能透明代理工具 🐳
-- [Fail2ban](https://github.com/y0ngb1n/dockerized/tree/master/system/fail2ban) - 自动封禁暴力破解的安全防护工具 ☸️
-- [Pocket ID](https://github.com/y0ngb1n/dockerized/tree/master/apps/pocket-id) - 一个简单的 OIDC 提供程序，支持且仅允许用户使用 Passkeys 进行身份验证 ☸️
-- [Tailscale VPN](https://github.com/y0ngb1n/dockerized/tree/master/tailscale) - 搭建属于自己的虚拟局域网 🐳 ☸️
-- [Tinyauth](https://github.com/y0ngb1n/dockerized/tree/master/apps/tinyauth) - 现代轻量的身份验证中间件 ☸️
-- [SonarQube](https://github.com/y0ngb1n/dockerized/tree/master/sonarqube) - 代码质量检测平台 🐳
-- [ZeroTier](https://github.com/y0ngb1n/dockerized/tree/master/zerotier) - 搭建属于自己的虚拟局域网 🐳
+名称 | 描述 | 快速部署
+:---: | :--- | :---:
+[acme.sh](https://github.com/acmesh-official/acme.sh) | 自动解析并申请证书，支持泛域名证书 | [☸️](https://github.com/y0ngb1n/dockerized/tree/master/kubernetes/system/acmesh)
+[AdGuard Home](https://github.com/AdguardTeam/AdGuardHome) | 一款全网广告拦截与反跟踪软件，安全过滤家中广告 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/adguard-home)
+[AList](https://github.com/OpenListTeam/OpenList) | 支持多存储的文件列表程序 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/alist)
+[Beancount](https://github.com/beancount/beancount) | 优秀的开源复式记账工具 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/beancount)
+[Vaultwarden](https://github.com/dani-garcia/vaultwarden) | 私人密码管理器 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/bitwarden)
+[Blocky](https://github.com/0xERR0R/blocky) | 轻量级的 DNS 代理工具，支持 DoT/DoH 加密以及广告过滤 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/blocky)
+[Cloudflare Tunnel](https://github.com/cloudflare/cloudflared) | Cloudflare 出品的一款轻量级代理工具 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/cloudflare-tunnel)
+[dae](https://github.com/daeuniverse/dae) | 一款基于 eBPF 技术的 Linux 高性能透明代理工具 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/dae)
+[Fail2ban](https://github.com/fail2ban/fail2ban) | 自动封禁暴力破解的安全防护工具 | [☸️](https://github.com/y0ngb1n/dockerized/tree/master/kubernetes/system/fail2ban)
+[Pocket ID](https://github.com/pocket-id/pocket-id) | 一个简单的 OIDC 提供程序，支持且仅允许用户使用 Passkeys 进行身份验证 | [☸️](https://github.com/y0ngb1n/dockerized/tree/master/kubernetes/apps/pocket-id)
+[Tailscale](https://tailscale.com/) | 搭建属于自己的虚拟局域网 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/tailscale) ☸️
+[Tinyauth](https://tinyauth.app/) | 轻量的身份验证中间件 | [☸️](https://github.com/y0ngb1n/dockerized/tree/master/kubernetes/apps/tinyauth)
+[SonarQube](https://www.sonarsource.com/products/sonarqube/) | 代码质量检测平台 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/sonarqube)
+[ZeroTier](https://www.zerotier.com/) | 搭建属于自己的虚拟局域网 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/zerotier)
 
 ---
 
