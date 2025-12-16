@@ -51,16 +51,19 @@ jobs:
             https://api.github.com/repos/beancount/fava/tags | jq -r '.[0].name')
           if [ "$local_version" != "$latest_version" ]; then
             echo "fava_version=$latest_version" >> $GITHUB_OUTPUT
-            echo "fava_latest_version=$latest_version" >> $GITHUB_ENV
-            echo "fava_pip_version=$(echo $latest_version | sed 's/v//g')" >> $GITHUB_ENV
+            echo "fava_latest_version=$latest_version" >> $GITHUB_OUTPUT
+            echo "fava_pip_version=$(echo $latest_version | sed 's/v//g')" >> $GITHUB_OUTPUT
           else
             echo "fava_latest_version=$local_version" >> $GITHUB_OUTPUT
-            echo "fava_pip_version=$local_version" >> $GITHUB_ENV
+            echo "fava_pip_version=$local_version" >> $GITHUB_OUTPUT
           fi
+      - name: Assert fava version
+        run: |
+          test -n "${{ steps.get_fava_version.outputs.fava_latest_version }}"
       - name: Update fava version
         if: steps.get_fava_version.outputs.fava_version != ''
         run: |
-          sed -i 's/fava==.*/fava=='"$fava_pip_version"'/g' docker/apps/beancount/fava/requirements.txt
+          sed -i 's/fava==.*/fava=='"${{ steps.get_fava_version.outputs.fava_pip_version }}"'/g' docker/apps/beancount/fava/requirements.txt
       - name: Build and push Docker images
         uses: docker/build-push-action@v6
         if: |
