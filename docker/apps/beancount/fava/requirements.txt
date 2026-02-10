@@ -1,5 +1,5 @@
 fava==1.30.11
 beancount-periodic==0.2.1
 fava-dashboards==2.0.0b4
-fava-portfolio-returns==2.5.0
+fava-portfolio-returns==2.5.1
 fava_investor==1.0.1
