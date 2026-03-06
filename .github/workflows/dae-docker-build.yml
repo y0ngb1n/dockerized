@@ -57,7 +57,7 @@ jobs:
             echo "dae_latest_version=$latest_version" >> $GITHUB_ENV
           fi
       - name: Build and push Docker images
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         if: steps.get_dae_version.outputs.dae_version != ''
         with:
           context: dae
