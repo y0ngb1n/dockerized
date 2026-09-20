@@ -1,0 +1,103 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/app-template-5.2.1/charts/other/app-template/values.schema.json
+app-template:
+  controllers:
+    main:
+      forceRename: "{{ .Release.Name }}"
+      containers:
+        main:
+          image:
+            # https://github.com/perber/leafwiki
+            repository: ghcr.io/perber/leafwiki
+            tag: latest
+            pullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                identifier: app-secrets
+  service:
+    main:
+      controller: main
+      type: ClusterIP
+      ports:
+        http:
+          port: 8080
+  ingress:
+    main:
+      className: nginx
+      annotations:
+        nginx.ingress.kubernetes.io/ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+        nginx.ingress.kubernetes.io/connection-proxy-header: "keep-alive"
+        ingress.kubernetes.io/rewrite-target: /
+        nginx.ingress.kubernetes.io/configuration-snippet: |
+          more_set_headers "Request-Id: $req_id";
+      hosts:
+        - host: &host wiki.example.com
+          paths:
+            - path: &basePath /wiki
+              pathType: Prefix
+              service:
+                identifier: main
+                port: http
+      tls:
+        - hosts:
+            - *host
+          secretName: tls-y0ngb1n.sryze.cc
+  secrets:
+    app-secrets:
+      stringData:
+        # https://github.com/perber/leafwiki#cli-flags
+        # https://github.com/perber/leafwiki#environment-variables
+        LEAFWIKI_DATA_DIR: "/app/data"
+        LEAFWIKI_ADMIN_USERNAME: "admin"
+        LEAFWIKI_ADMIN_PASSWORD: "CHANGE_YOUR_LEAFWIKI_ADMIN_PASSWORD"
+        LEAFWIKI_JWT_SECRET: "CHANGE_YOUR_LEAFWIKI_JWT_SECRET"
+        LEAFWIKI_PUBLIC_ACCESS: "false"
+        LEAFWIKI_DISABLE_AUTH: "false"
+        LEAFWIKI_BASE_PATH: *basePath # https://wiki.example.com/wiki
+        LEAFWIKI_CUSTOM_STYLESHEET: "custom.css"
+        LEAFWIKI_ENABLE_LINK_REFACTOR: "true"
+        LEAFWIKI_ALLOW_INSECURE: "true"
+        LEAFWIKI_INJECT_CODE_IN_HEADER: |
+          <script>
+          /**
+            * Fix iOS Safari page zoom when focusing form inputs.
+            *
+            * Problem:
+            * On iOS Safari, focusing an input (e.g. password field)
+            * may cause the entire page viewport to be zoomed automatically.
+            * After leaving the input, the page can remain at the changed zoom level.
+            *
+            * Fix:
+            * Limit the viewport's maximum scale to 1.0 so the page
+            * remains at its original 100% scale when focusing inputs.
+            */
+          (() => {
+            const viewport = document.querySelector('meta[name="viewport"]');
+
+            if (viewport) {
+              viewport.setAttribute(
+                'content',
+                'width=device-width, initial-scale=1.0, maximum-scale=1.0'
+              );
+            }
+          })();
+          </script>
+  persistence:
+    app-data:
+      type: persistentVolumeClaim
+      accessMode: ReadWriteOnce
+      size: 100Mi
+      retain: true
+      globalMounts:
+        - path: /app/data
+    app-custom:
+      type: configMap
+      name: "{{ .Release.Name }}-custom"
+      defaultMode: 0755
+      advancedMounts:
+        main:
+          main:
+            - path: /app/data/custom.css
+              readOnly: true
+              mountPropagation: None
+              subPath: custom.css

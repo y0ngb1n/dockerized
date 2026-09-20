@@ -33,6 +33,7 @@
 [Cloudflare Tunnel](https://github.com/cloudflare/cloudflared) | Cloudflare 出品的一款轻量级代理工具 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/cloudflare-tunnel)
 [dae](https://github.com/daeuniverse/dae) | 一款基于 eBPF 技术的 Linux 高性能透明代理工具 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/dae)
 [Fail2ban](https://github.com/fail2ban/fail2ban) | 自动封禁暴力破解的安全防护工具 | [☸️](https://github.com/y0ngb1n/dockerized/tree/master/kubernetes/system/fail2ban)
+[LeafWiki](https://github.com/perber/leafwiki) | 一个轻量、开源、以 Markdown 文件为核心的自托管知识库 | [☸️](https://github.com/y0ngb1n/dockerized/tree/master/kubernetes/apps/leafwiki)
 [Pocket ID](https://github.com/pocket-id/pocket-id) | 一个简单的 OIDC 提供程序，支持且仅允许用户使用 Passkeys 进行身份验证 | [☸️](https://github.com/y0ngb1n/dockerized/tree/master/kubernetes/apps/pocket-id)
 [Tailscale](https://tailscale.com/) | 搭建属于自己的虚拟局域网 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/tailscale) ☸️
 [Tinyauth](https://tinyauth.app/) | 轻量的身份验证中间件 | [☸️](https://github.com/y0ngb1n/dockerized/tree/master/kubernetes/apps/tinyauth)

@@ -1,0 +1,336 @@
+/* =========================================================
+   LeafWiki Global style
+   ========================================================= */
+
+img {
+  margin-top: 0em !important;
+  margin-bottom: 0em !important;
+  overflow: hidden !important;
+  border-radius: var(--radius-lg) !important;
+}
+
+table {
+  margin-top: 0em !important;
+  margin-bottom: 0em !important;
+}
+
+
+/* =========================================================
+   LeafWiki Login — OpenAuth style
+   - https://github.com/anomalyco/openauth
+   ========================================================= */
+
+.login {
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  width: 100% !important;
+  max-width: 100% !important;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 32px 20px;
+  box-sizing: border-box;
+
+  background: #fafafa;
+  user-select: none;
+}
+
+.login__form {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+
+/* ---------------------------------------------------------
+   Brand
+   --------------------------------------------------------- */
+
+/* Logo */
+.login__logo-image {
+  display: block;
+  width: 64px !important;
+  height: 64px !important;
+  object-fit: contain;
+  margin: 0 auto 0.75rem;
+}
+
+/* Login Title */
+.login__title {
+  display: block !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  margin-bottom: 2.25rem !important;
+
+  color: #171717;
+
+  font-size: 1.5rem;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+
+  text-align: center;
+}
+
+
+/* ---------------------------------------------------------
+   Fields
+   --------------------------------------------------------- */
+
+.login__field {
+  margin-bottom: 14px;
+}
+
+
+/* ---------------------------------------------------------
+   Input
+   --------------------------------------------------------- */
+
+.login__field input {
+  display: block;
+
+  width: 100%;
+  height: 44px;
+
+  box-sizing: border-box;
+
+  padding: 0 12px;
+
+  border: 1px solid #d4d4d4;
+  border-radius: 6px;
+
+  background: #fff;
+  color: #171717;
+
+  font-size: 14px;
+  line-height: 44px;
+
+  outline: none;
+
+  box-shadow: 0 1px 2px rgb(0 0 0 / 3%);
+
+  transition:
+    border-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.login__field input:hover {
+  border-color: #a3a3a3;
+}
+
+.login__field input:focus {
+  border-color: #737373;
+
+  box-shadow:
+    0 0 0 3px rgb(0 0 0 / 6%);
+}
+
+.login__field input::placeholder {
+  color: #737373;
+  opacity: 1;
+}
+
+
+/* ---------------------------------------------------------
+   Forgot password
+   --------------------------------------------------------- */
+
+.login__forgot-password {
+  display: block;
+
+  margin: -2px 0 16px;
+
+  color: #525252;
+
+  font-size: 13px;
+  line-height: 20px;
+
+  text-align: right;
+  text-decoration: none;
+}
+
+.login__forgot-password:hover {
+  color: #171717;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+
+/* ---------------------------------------------------------
+   Submit
+   --------------------------------------------------------- */
+
+.login__submit {
+  width: 100%;
+  height: 44px;
+
+  margin-top: 2px;
+
+  border: 1px solid #171717;
+  border-radius: 6px;
+
+  background: #171717;
+  color: #fff;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  box-shadow: none;
+
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    transform 80ms ease;
+}
+
+.login__submit:hover {
+  background: #262626;
+  border-color: #262626;
+}
+
+.login__submit:active {
+  transform: translateY(1px);
+}
+
+.login__submit:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgb(0 0 0 / 10%);
+}
+
+.login__submit:disabled {
+  opacity: .55;
+}
+
+
+/* ---------------------------------------------------------
+   TOTP
+   --------------------------------------------------------- */
+
+.login__totp-description {
+  margin: -12px 0 20px;
+
+  color: #737373;
+
+  font-size: 14px;
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+.login__totp-back {
+  width: 100%;
+  height: 40px;
+
+  margin-top: 8px;
+
+  border-radius: 6px;
+
+  color: #737373;
+
+  font-size: 13px;
+}
+
+.login__totp-back:hover {
+  background: #f5f5f5;
+  color: #171717;
+}
+
+
+/* ---------------------------------------------------------
+   Mobile
+   --------------------------------------------------------- */
+
+@media (max-width: 480px) {
+  .login {
+    padding: 24px 20px;
+  }
+
+  .login__form {
+    max-width: none;
+  }
+
+  .login__title {
+    margin-bottom: 26px;
+    font-size: 23px;
+  }
+
+  .login__field input,
+  .login__submit {
+    height: 46px;
+  }
+}
+
+
+/* =========================================================
+   Dark mode
+   ========================================================= */
+
+@media (prefers-color-scheme: dark) {
+  .login {
+    background: #0b0b0b;
+  }
+
+  .login__title {
+    color: #ededed;
+  }
+
+  .login__field input {
+    border-color: #303030;
+    background: #171717;
+    color: #ededed;
+
+    box-shadow: none;
+  }
+
+  .login__field input:hover {
+    border-color: #505050;
+  }
+
+  .login__field input:focus {
+    border-color: #737373;
+    box-shadow:
+      0 0 0 3px rgb(255 255 255 / 6%);
+  }
+
+  .login__field input::placeholder {
+    color: #8b8b8b;
+  }
+
+  .login__forgot-password {
+    color: #a3a3a3;
+  }
+
+  .login__forgot-password:hover {
+    color: #ededed;
+  }
+
+  .login__submit {
+    border-color: #ededed;
+    background: #ededed;
+    color: #171717;
+  }
+
+  .login__submit:hover {
+    border-color: #fff;
+    background: #fff;
+  }
+
+  .login__totp-description {
+    color: #a3a3a3;
+  }
+
+  .login__totp-back {
+    color: #a3a3a3;
+  }
+
+  .login__totp-back:hover {
+    background: #171717;
+    color: #ededed;
+  }
+}
