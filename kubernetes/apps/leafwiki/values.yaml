@@ -41,7 +41,7 @@ app-template:
       tls:
         - hosts:
             - *host
-          secretName: tls-y0ngb1n.sryze.cc
+          secretName: tls-example.com
   secrets:
     app-secrets:
       stringData:

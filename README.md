@@ -28,7 +28,7 @@
 [AdGuard Home](https://github.com/AdguardTeam/AdGuardHome) | 一款全网广告拦截与反跟踪软件，安全过滤家中广告 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/adguard-home)
 [AList](https://github.com/OpenListTeam/OpenList) | 支持多存储的文件列表程序 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/alist)
 [Beancount](https://github.com/beancount/beancount) | 优秀的开源复式记账工具 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/beancount)
-[Vaultwarden](https://github.com/dani-garcia/vaultwarden) | 私人密码管理器 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/bitwarden)
+[Vaultwarden](https://github.com/dani-garcia/vaultwarden) | 轻量、安全、私有的密码管理服务 | [☸️](https://github.com/y0ngb1n/dockerized/tree/master/kubernetes/apps/vaultwarden) [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/bitwarden)
 [Blocky](https://github.com/0xERR0R/blocky) | 轻量级的 DNS 代理工具，支持 DoT/DoH 加密以及广告过滤 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/blocky)
 [Cloudflare Tunnel](https://github.com/cloudflare/cloudflared) | Cloudflare 出品的一款轻量级代理工具 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/cloudflare-tunnel)
 [dae](https://github.com/daeuniverse/dae) | 一款基于 eBPF 技术的 Linux 高性能透明代理工具 | [🐳](https://github.com/y0ngb1n/dockerized/tree/master/docker/apps/dae)
